@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSmart.az | Telefon, Aksesuar və Təmir</title>
+    <meta name="description" content="iSmart.az - ən yeni telefonlar, aksesuarlar və peşəkar təmir xidmətləri">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="frontend/css/styles.css">
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <div class="header-main">
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpeg" alt="Logo" onerror="this.src='https://placehold.co/40x40'">
+                <span>iSmart.az</span>
+            </a>
+            <div>
+                <button class="btn btn-orange" id="cartBtn">
+                    <i class="fas fa-shopping-cart"></i> Səbət (<span id="cartCount">0</span>)
+                </button>
+                <a href="admin.html" class="btn"><i class="fas fa-shield-alt"></i> Admin</a>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Ana səhifə</a>
+            <a href="telefonlar.html"><i class="fas fa-mobile-alt"></i> Telefonlar</a>
+            <a href="aksesuarlar.html"><i class="fas fa-headphones"></i> Aksesuarlar</a>
+            <a href="temir.html"><i class="fas fa-tools"></i> Təmir</a>
+            <a href="orders.html"><i class="fas fa-truck"></i> Sifarişlər</a>
+        </div>
+    </div>
+</div>
+
+<main>
+    <section class="hero-slider">
+        <div class="container">
+            <div class="swiper heroSwiper">
+                <div class="swiper-wrapper" id="campaignSlider"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="container">
+            <div class="section-head">
+                <h2><i class="fas fa-star"></i> Populyar Məhsullar</h2>
+                <p id="resultCount">0 məhsul</p>
+            </div>
+            <div class="brand-filter" id="brandFilter">
+                <button class="filter-chip active" data-brand="all">🏷️ Hamısı</button>
+                <button class="filter-chip" data-brand="apple">🍎 Apple</button>
+                <button class="filter-chip" data-brand="samsung">📱 Samsung</button>
+                <button class="filter-chip" data-brand="xiaomi">📲 Xiaomi</button>
+            </div>
+            <div class="product-grid" id="productsGrid"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h3><i class="fas fa-store"></i> iSmart.az</h3>
+                <p>Ən yaxşı qiymətlər, keyfiyyətli məhsullar</p>
+            </div>
+            <div>
+                <h3><i class="fas fa-link"></i> Keçidlər</h3>
+                <a href="telefonlar.html">Telefonlar</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir</a>
+            </div>
+            <div>
+                <h3><i class="fas fa-phone"></i> Əlaqə</h3>
+                <p>📞 +994 77 800 22 23</p>
+                <p>📧 info@ismart.az</p>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2026 iSmart.az | Bütün hüquqlar qorunur</p>
+    </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="frontend/js/script.js"></script>
+</body>
+</html>

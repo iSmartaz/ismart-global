@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sifarişlər - iSmart.az</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="frontend/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="orders-header">
+        <h1><i class="fas fa-truck"></i> Sifarişlərin İdarə Edilməsi</h1>
+        <a href="admin.html" class="btn"><i class="fas fa-arrow-left"></i> Adminə qayıt</a>
+    </div>
+    <div id="ordersList" class="orders-list">
+        <div style="text-align:center; padding:40px;">Yüklənir...</div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAOI9XZkJvcxtm3VBHSRBv3PW6WxaI35Tw",
+        authDomain: "ismart-shop-3b29c.firebaseapp.com",
+        databaseURL: "https://ismart-shop-3b29c-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "ismart-shop-3b29c",
+        storageBucket: "ismart-shop-3b29c.firebasestorage.app",
+        messagingSenderId: "824646870381",
+        appId: "1:824646870381:web:0160c2c5993adcc762e664"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    function getStatusText(status) {
+        const map = { pending: '⏳ Gözləmədə', confirmed: '✅ Təsdiqlənmiş', shipped: '🚚 Yolda', delivered: '📦 Çatdırılmış', cancelled: '❌ Ləğv edilmiş' };
+        return map[status] || status;
+    }
+
+    function loadOrders() {
+        database.ref('orders').on('value', (snapshot) => {
+            const data = snapshot.val();
+            const orders = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })).reverse() : [];
+            const container = document.getElementById('ordersList');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<div class="empty-orders"><i class="fas fa-inbox"></i><br>Heç bir sifariş yoxdur</div>';
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <strong><i class="fas fa-receipt"></i> ${order.orderNumber || order.id}</strong><br>
+                            <small><i class="fas fa-calendar"></i> ${new Date(order.createdAt).toLocaleString('az-AZ')}</small>
+                        </div>
+                        <select class="order-status" data-id="${order.id}">
+                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>⏳ Gözləmədə</option>
+                            <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>✅ Təsdiqlənmiş</option>
+                            <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>🚚 Yolda</option>
+                            <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>📦 Çatdırılmış</option>
+                            <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>❌ Ləğv edilmiş</option>
+                        </select>
+                    </div>
+                    <div class="order-details">
+                        <div><i class="fas fa-user"></i> <strong>${escapeHtml(order.customerName || '-')}</strong></div>
+                        <div><i class="fas fa-phone"></i> ${escapeHtml(order.phone || '-')}</div>
+                        <div><i class="fas fa-map-marker-alt"></i> ${escapeHtml(order.address || '-')}</div>
+                        <div><i class="fas fa-credit-card"></i> ${order.paymentMethod === 'cash' ? 'Nağd' : 'Kart'}</div>
+                    </div>
+                    <div class="order-items">
+                        <strong><i class="fas fa-box"></i> Məhsullar:</strong>
+                        ${order.items ? order.items.map(item => `<div class="order-item">• ${escapeHtml(item.name)} x ${item.quantity} = ${item.price * item.quantity} AZN</div>`).join('') : '-'}
+                    </div>
+                    <div class="order-total">
+                        <strong><i class="fas fa-money-bill-wave"></i> Ümumi: ${order.total || 0} AZN</strong>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.order-status').forEach(select => {
+                select.onchange = () => {
+                    database.ref('orders/' + select.dataset.id).update({ status: select.value });
+                    alert('✅ Sifariş statusu yeniləndi!');
+                };
+            });
+        });
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+    }
+    
+    loadOrders();
+</script>
+</body>
+</html>

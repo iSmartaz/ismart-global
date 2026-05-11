@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - iSmart.az</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="frontend/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Login Panel -->
+    <div id="loginPanel" class="login-panel">
+        <div class="login-card">
+            <i class="fas fa-shield-alt" style="font-size: 48px; color: #2563eb;"></i>
+            <h1>Admin Giriş</h1>
+            <p>iSmart.az İdarəetmə Paneli</p>
+            <input type="text" id="adminUser" placeholder="İstifadəçi adı">
+            <input type="password" id="adminPass" placeholder="Şifrə">
+            <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Daxil ol</button>
+            <p id="loginError" style="color:red; margin-top:10px;"></p>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-header">
+            <h1><i class="fas fa-shield-alt"></i> iSmart.az Admin</h1>
+            <div>
+                <button id="logoutBtn" class="btn-danger"><i class="fas fa-sign-out-alt"></i> Çıxış</button>
+                <a href="index.html" class="btn" style="background:#64748b;"><i class="fas fa-home"></i> Sayta bax</a>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card"><div class="stat-number" id="statProducts">0</div><div><i class="fas fa-box"></i> Məhsul</div></div>
+            <div class="stat-card"><div class="stat-number" id="statCampaigns">0</div><div><i class="fas fa-bullhorn"></i> Kampaniya</div></div>
+            <div class="stat-card"><div class="stat-number" id="statCoupons">0</div><div><i class="fas fa-ticket-alt"></i> Endirim kodu</div></div>
+            <div class="stat-card"><div class="stat-number" id="statOrders">0</div><div><i class="fas fa-truck"></i> Sifariş</div></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="products"><i class="fas fa-box"></i> Məhsullar</button>
+            <button class="tab-btn" data-tab="campaigns"><i class="fas fa-bullhorn"></i> Kampaniyalar</button>
+            <button class="tab-btn" data-tab="coupons"><i class="fas fa-ticket-alt"></i> Endirim kodları</button>
+        </div>
+
+        <!-- Məhsullar Tab -->
+        <div id="tab-products" class="tab-pane active">
+            <div class="form-card">
+                <h3><i class="fas fa-plus-circle"></i> Yeni Məhsul</h3>
+                <input type="text" id="productName" placeholder="Məhsul adı">
+                <select id="productCategory">
+                    <option value="phones">📱 Telefonlar</option>
+                    <option value="accessories">🎧 Aksesuarlar</option>
+                    <option value="repair">🔧 Təmir xidmətləri</option>
+                </select>
+                <select id="productBrand">
+                    <option value="">Brend seçin</option>
+                    <option value="apple">Apple</option>
+                    <option value="samsung">Samsung</option>
+                    <option value="xiaomi">Xiaomi</option>
+                </select>
+                <input type="number" id="productPrice" placeholder="Qiymət (AZN)">
+                <input type="number" id="productDiscount" placeholder="Endirim faizi" value="0">
+                <input type="text" id="productMeta" placeholder="Qısa məlumat (128GB·Qara)">
+                <input type="text" id="productImage" placeholder="Şəkil linki (URL)">
+                <button id="saveProductBtn" class="btn-success"><i class="fas fa-save"></i> Yadda saxla</button>
+            </div>
+
+            <div class="list-card">
+                <h3><i class="fas fa-list"></i> Mövcud Məhsullar</h3>
+                <div id="productsList"></div>
+            </div>
+        </div>
+
+        <!-- Kampaniyalar Tab -->
+        <div id="tab-campaigns" class="tab-pane">
+            <div class="form-card">
+                <h3><i class="fas fa-plus-circle"></i> Yeni Kampaniya</h3>
+                <input type="text" id="campaignTitle" placeholder="Kampaniya başlığı">
+                <textarea id="campaignDesc" rows="2" placeholder="Açıqlama"></textarea>
+                <input type="text" id="campaignImage" placeholder="Şəkil linki">
+                <select id="campaignTheme">
+                    <option value="blue">Mavi tema</option>
+                    <option value="orange">Narıncı tema</option>
+                    <option value="purple">Bənövşəyi tema</option>
+                </select>
+                <input type="text" id="campaignLink" placeholder="Link" value="telefonlar.html">
+                <select id="campaignStatus">
+                    <option value="active">✅ Aktiv</option>
+                    <option value="inactive">❌ Deaktiv</option>
+                </select>
+                <button id="saveCampaignBtn" class="btn-success"><i class="fas fa-save"></i> Yadda saxla</button>
+            </div>
+
+            <div class="list-card">
+                <h3><i class="fas fa-list"></i> Mövcud Kampaniyalar</h3>
+                <div id="campaignsList"></div>
+            </div>
+        </div>
+
+        <!-- Endirim Kodları Tab -->
+        <div id="tab-coupons" class="tab-pane">
+            <div class="form-card">
+                <h3><i class="fas fa-plus-circle"></i> Yeni Endirim Kodu</h3>
+                <input type="text" id="couponCode" placeholder="Kod (məs: SAVE10)">
+                <input type="number" id="couponDiscount" placeholder="Endirim faizi" value="10">
+                <input type="number" id="couponMinAmount" placeholder="Min sifariş məbləği" value="0">
+                <input type="date" id="couponExpiry">
+                <select id="couponActive">
+                    <option value="active">✅ Aktiv</option>
+                    <option value="inactive">❌ Deaktiv</option>
+                </select>
+                <button id="saveCouponBtn" class="btn-success"><i class="fas fa-save"></i> Yadda saxla</button>
+            </div>
+
+            <div class="list-card">
+                <h3><i class="fas fa-list"></i> Mövcud Kodlar</h3>
+                <div id="couponsList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="frontend/js/admin.js"></script>
+</body>
+</html>
