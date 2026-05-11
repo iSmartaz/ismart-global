@@ -5,65 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Təmir Xidmətləri - iSmart.az</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="frontend/css/styles.css">
+    <link rel="stylesheet" href="/frontend/css/styles.css">
 </head>
 <body>
 
-<div class="header">
-    <div class="container">
-        <div class="header-main">
-            <a href="index.html" class="logo">
-                <img src="images/logo.jpeg" alt="Logo">
-                <span>iSmart.az</span>
-            </a>
-            <div>
-                <button class="btn btn-orange" id="cartBtn"><i class="fas fa-shopping-cart"></i> Səbət (<span id="cartCount">0</span>)</button>
-                <a href="admin.html" class="btn"><i class="fas fa-shield-alt"></i> Admin</a>
+    <div class="dark-mode-toggle"><button id="darkModeBtn" class="dark-mode-btn"><i class="fa-solid fa-moon"></i></button></div>
+
+    <div class="promo-strip"><div class="container promo-strip-inner"><strong>Təmir</strong><span>Ekran, batareya, kamera</span><a href="index.html">Ana səhifə</a></div></div>
+    
+    <div class="service-bar"><div class="container service-bar-inner"><div class="service-links"><a href="index.html">Ana səhifə</a><a href="telefonlar.html">Telefonlar</a><a href="aksesuarlar.html">Aksesuarlar</a></div><div class="service-contact"><a href="tel:+994778002223"><i class="fa-solid fa-phone"></i> +994 77 800 22 23</a></div></div></div>
+
+    <header class="header">
+        <div class="container header-main">
+            <a class="brand" href="index.html"><img src="images/logo.jpeg" alt="Logo"><span>iSmart.az</span></a>
+            <button class="catalog-btn" id="catalogBtn">☰ Kataloq</button>
+            <div class="search-box"><input type="search" id="searchInput" placeholder="Təmir axtar"><button id="searchBtn">Axtar</button></div>
+            <button class="cart-btn" id="cartBtn">Səbət <span class="cart-count" id="cartCount">0</span></button>
+            <div class="user-panel"><button class="user-btn" id="userBtn"><i class="fa-regular fa-user"></i></button><div class="user-dropdown" id="userDropdown"><a href="#" id="loginLink">Daxil ol</a><a href="#" id="registerLink">Qeydiyyat</a><a href="#" id="profileLink" style="display:none;">Profilim</a><a href="#" id="logoutLink" style="display:none;">Çıxış</a></div></div>
+        </div>
+        <div class="container quick-catalog"><a href="telefonlar.html">Telefonlar</a><a href="aksesuarlar.html">Aksesuarlar</a><a href="temir.html">Təmir</a><a href="index.html#campaigns">Kampaniyalar</a><a href="index.html#contact">Əlaqə</a></div>
+        <nav class="container nav"><a href="index.html" class="nav-link">Ana səhifə</a><a href="telefonlar.html" class="nav-link">Telefonlar</a><a href="aksesuarlar.html" class="nav-link">Aksesuarlar</a><a href="temir.html" class="nav-link active">Təmir</a></nav>
+    </header>
+
+    <main>
+        <section class="page-hero repair-hero">
+            <div class="container page-hero-grid">
+                <div><div class="breadcrumb"><a href="index.html"><i class="fa-solid fa-house"></i> Ana səhifə</a><i class="fa-solid fa-chevron-right"></i><span>Təmir</span></div><h1>Təmir xidmətləri</h1><p>Peşəkar servis xidməti</p><div class="page-actions"><a href="telefonlar.html" class="btn ghost-btn">Telefonlara bax</a><a href="aksesuarlar.html" class="btn ghost-btn">Aksesuar seç</a></div></div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Cell_Phone_Repair.jpg/300px-Cell_Phone_Repair.jpg" alt="Təmir">
             </div>
-        </div>
-        <div class="nav">
-            <a href="index.html">Ana səhifə</a>
-            <a href="telefonlar.html">Telefonlar</a>
-            <a href="aksesuarlar.html">Aksesuarlar</a>
-            <a href="temir.html" class="active">Təmir</a>
-        </div>
-    </div>
-</div>
+        </section>
 
-<main>
-    <section class="page-header">
-        <div class="container">
-            <h1><i class="fas fa-tools"></i> Təmir Xidmətləri</h1>
-            <p>Peşəkar servis, qısa müddətdə təmir</p>
-        </div>
-    </section>
+        <section id="categories" class="page-tools"><div class="container category-showcase"><button class="category-card active" data-category="all"><span class="category-icon">All</span><strong>Bütün xidmətlər</strong></button><button class="category-card" data-category="repair"><span class="category-icon">Srv</span><strong>Təmir</strong></button></div></section>
 
-    <section class="products">
-        <div class="container">
-            <div class="product-grid" id="productsGrid"></div>
-        </div>
-    </section>
-</main>
+        <section id="products" class="products"><div class="container"><div class="section-head"><div><span class="eyebrow">Servis kataloqu</span><h2>Təmir xidmətləri</h2></div><p class="result-count" id="resultCount">4 xidmət</p></div><div class="product-grid" id="productsGrid"></div></div></section>
+    </main>
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div><h3>iSmart.az</h3><p>Ən yaxşı qiymətlər</p></div>
-            <div><h3>Keçidlər</h3><a href="telefonlar.html">Telefonlar</a><a href="aksesuarlar.html">Aksesuarlar</a></div>
-            <div><h3>Əlaqə</h3><p>📞 +994 77 800 22 23</p></div>
-        </div>
-    </div>
-</footer>
+    <!-- Modallar -->
+    <div class="auth-modal" id="authModal"><div class="auth-content"><div class="auth-header"><h2 id="authTitle">Daxil ol</h2><button class="close-auth" id="closeAuthBtn">&times;</button></div><div class="auth-body"><form id="loginFormModal" class="auth-form"><input type="email" id="loginEmail" placeholder="E-poçt"><input type="password" id="loginPassword" placeholder="Şifrə"><button type="submit" class="btn primary-btn">Daxil ol</button></form><form id="registerFormModal" class="auth-form" style="display:none;"><input type="text" id="regName" placeholder="Ad Soyad"><input type="email" id="regEmail" placeholder="E-poçt"><input type="password" id="regPassword" placeholder="Şifrə"><input type="password" id="regConfirmPassword" placeholder="Şifrə təkrar"><button type="submit" class="btn primary-btn">Qeydiyyat</button></form><div class="social-login"><button class="google-login"><i class="fa-brands fa-google"></i> Google</button><button class="facebook-login"><i class="fa-brands fa-facebook"></i> Facebook</button></div><p class="auth-switch"><a href="#" id="switchToRegister">Qeydiyyat</a><a href="#" id="switchToLogin" style="display:none;">Daxil ol</a></p></div></div></div>
+    <div class="cart-modal" id="cartModal"><div class="cart-content"><div class="cart-header"><h2>Səbət</h2><button class="close-cart" id="closeCart">&times;</button></div><div class="cart-items" id="cartItems"></div><div class="cart-coupon"><input type="text" id="couponCode" placeholder="Endirim kodu"><button id="applyCouponBtn" class="btn ghost-btn">Tətbiq et</button></div><div class="cart-footer"><div class="cart-total"><strong>Cəmi: <span id="cartTotal">0 AZN</span></strong></div><div class="payment-methods"><button class="payment-btn cash-btn" data-method="cash">💵 Nağd</button><button class="payment-btn card-btn" data-method="card">💳 Kartla ödə</button></div><button class="btn checkout-btn"><i class="fa-brands fa-whatsapp"></i> Sifarişi təsdiqlə</button></div></div></div>
+    <div class="compare-modal" id="compareModal"><div class="compare-content"><div class="compare-header"><h2>Müqayisə</h2><button class="close-compare" id="closeCompareBtn">&times;</button></div><div class="compare-items" id="compareItems"></div></div></div>
+    <div class="wishlist-modal" id="wishlistModal"><div class="wishlist-content"><div class="wishlist-header"><h2>Arzular</h2><button class="close-wishlist" id="closeWishlistBtn">&times;</button></div><div class="wishlist-items" id="wishlistItems"></div></div></div>
+    <div class="profile-modal" id="profileModal"><div class="profile-content"><div class="profile-header"><h2>Profilim</h2><button class="close-profile" id="closeProfileBtn">&times;</button></div><div class="profile-body"><div class="profile-info"><p><strong>Ad:</strong> <span id="profileName"></span></p><p><strong>E-poçt:</strong> <span id="profileEmail"></span></p></div><div class="order-history"><h3>Sifariş tarixçəsi</h3><div id="orderHistoryList"></div></div><div class="stock-notifications"><h3>Stok bildirişləri</h3><div id="stockNotificationsList"></div></div></div></div></div>
+    <div class="payment-modal" id="paymentModal"><div class="payment-content"><div class="payment-header"><h2>Ödəniş</h2><button class="close-payment" id="closePaymentBtn">&times;</button></div><div class="payment-body"><div class="order-summary" id="paymentOrderSummary"></div><div class="card-form" id="cardForm"><input type="text" placeholder="Kart nömrəsi" id="cardNumber"><div class="card-row"><input type="text" placeholder="MM/YY" id="cardExpiry"><input type="text" placeholder="CVV" id="cardCvv"></div><input type="text" placeholder="Kart sahibi" id="cardName"><button id="processPaymentBtn" class="btn primary-btn">Ödənişi tamamla</button></div><div class="qr-payment" id="qrPayment" style="display:none;"><p>QR kod</p><div id="qrCode"></div></div></div></div></div>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-<script src="frontend/js/script.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        loadProductsByCategory('repair');
-        updateCartCount();
-        initCartButton();
-    });
-</script>
+    <section id="contact" class="contact"><div class="container"><div class="section-head"><div><span class="eyebrow">Əlaqə</span><h2>Mağaza məlumatları</h2></div></div><div class="contact-grid"><div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></span><h3>Ünvan</h3><p>Bakı, Azadlıq prospekti 123</p></div><div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-phone"></i></span><h3>Telefon</h3><a href="tel:+994778002223">+994 77 800 22 23</a></div><div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-envelope"></i></span><h3>E-mail</h3><a href="mailto:info@ismart.az">info@ismart.az</a></div><div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-share-nodes"></i></span><h3>Sosial</h3><div class="contact-social"><a href="https://instagram.com/i.smart.az" target="_blank"><i class="fa-brands fa-instagram"></i></a><a href="https://tiktok.com/@i.smart.az" target="_blank"><i class="fa-brands fa-tiktok"></i></a><a href="https://wa.me/994778002223" target="_blank"><i class="fa-brands fa-whatsapp"></i></a><a href="https://facebook.com/ismart.az" target="_blank"><i class="fa-brands fa-facebook"></i></a></div></div></div></div></section>
+
+    <footer class="footer"><div class="container footer-grid"><div><div class="footer-logo"><img src="images/logo.jpeg" alt="Logo"><span>iSmart.az</span></div><p>Online mağaza</p></div><div><h3>Kataloq</h3><a href="telefonlar.html">Telefonlar</a><a href="aksesuarlar.html">Aksesuarlar</a><a href="temir.html">Təmir</a></div><div><h3>Əlaqə</h3><a href="tel:+994778002223">+994 77 800 22 23</a><a href="https://wa.me/994778002223">WhatsApp</a></div></div><p class="footer-copyright">&copy; 2026 iSmart.az</p></footer>
+
+    <div class="floating-social"><a href="https://wa.me/994778002223" class="floating-btn whatsapp"><i class="fa-brands fa-whatsapp"></i></a><a href="https://instagram.com/i.smart.az" class="floating-btn instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://tiktok.com/@i.smart.az" class="floating-btn tiktok"><i class="fa-brands fa-tiktok"></i></a><a href="https://facebook.com/ismart.az" class="floating-btn facebook"><i class="fa-brands fa-facebook"></i></a></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="/frontend/js/script.js"></script>
 </body>
 </html>

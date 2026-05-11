@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSmart.az - Telefon, Aksesuar və Təmir</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="promo-strip">
+        <div class="container promo-strip-inner">
+            <strong>iSmart.az</strong>
+            <span>Telefonlar, aksesuarlar və təmir xidmətləri üçün peşəkar mağaza vitrini</span>
+            <a href="telefonlar.html">Kataloqa bax</a>
+        </div>
+    </div>
+
+    <div class="service-bar">
+        <div class="container service-bar-inner">
+            <div class="service-links">
+                <a href="telefonlar.html">Telefonlar</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir</a>
+                <a href="#contact">Əlaqə</a>
+            </div>
+            <div class="service-contact">
+                <a href="tel:+994778002223"><i class="fa-solid fa-phone"></i> +994 77 800 22 23</a>
+                <a href="#contact"><i class="fa-solid fa-location-dot"></i> Mağaza</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container header-main">
+            <a class="brand" href="index.html" aria-label="iSmart.az ana səhifə">
+                <img src="images/logo.jpeg" alt="iSmart.az Logo">
+                <span>iSmart.az</span>
+            </a>
+
+            <button class="catalog-btn" type="button" id="catalogBtn">☰ Kataloq</button>
+
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Ana səhifədə seçilmiş məhsul axtar">
+                <button type="button" id="searchBtn">Axtar</button>
+            </div>
+
+            <button class="cart-btn" id="cartBtn" type="button">
+                Səbət <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+
+        <div class="container quick-catalog">
+            <a href="telefonlar.html">Telefonlar</a>
+            <a href="aksesuarlar.html">Aksesuarlar</a>
+            <a href="temir.html">Təmir</a>
+            <a href="#campaigns">Kampaniyalar</a>
+            <a href="#contact">Zəmanət və əlaqə</a>
+        </div>
+
+        <nav class="container nav">
+            <a href="index.html" class="nav-link active">Ana səhifə</a>
+            <a href="telefonlar.html" class="nav-link">Telefonlar</a>
+            <a href="aksesuarlar.html" class="nav-link">Aksesuarlar</a>
+            <a href="temir.html" class="nav-link">Təmir</a>
+            <a href="#contact" class="nav-link">Əlaqə</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container shop-window">
+                <aside class="catalog-panel" id="categories" aria-label="Kateqoriyalar">
+                    <div class="catalog-panel-title">
+                        <i class="fa-solid fa-bars"></i>
+                        <span>Kateqoriyalar</span>
+                    </div>
+                    <a href="telefonlar.html"><i class="fa-solid fa-mobile-screen-button"></i> Telefonlar</a>
+                    <a href="aksesuarlar.html"><i class="fa-solid fa-headphones"></i> Aksesuarlar</a>
+                    <a href="temir.html"><i class="fa-solid fa-screwdriver-wrench"></i> Təmir xidmətləri</a>
+                    <a href="#campaigns"><i class="fa-solid fa-percent"></i> Kampaniyalar</a>
+                    <a href="#contact"><i class="fa-solid fa-shield-halved"></i> Zəmanət və servis</a>
+                </aside>
+
+                <div class="main-banner">
+                    <div class="banner-copy">
+                        <span class="eyebrow"><img src="images/logo.jpeg" alt=""> iSmart.az</span>
+                        <h1>Telefon, aksesuar və təmir üçün ayrı-ayrı peşəkar səhifələr</h1>
+                        <p>Mağazanı daha böyük elektronika saytı kimi qurduq: hər kateqoriya ayrıca səhifədə açılır və öz məhsullarını göstərir.</p>
+                        <div class="hero-actions">
+                            <a href="telefonlar.html" class="btn primary-btn">Telefonlara bax</a>
+                            <a href="aksesuarlar.html" class="btn ghost-btn">Aksesuarlar</a>
+                        </div>
+                    </div>
+                    <div class="banner-device">
+                        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IPhone_15_pro.png" alt="iPhone 15 Pro">
+                    </div>
+                </div>
+
+                <aside class="promo-panel" aria-label="Xüsusi təkliflər">
+                    <a class="promo-card compact-red" href="telefonlar.html">
+                        <span>Telefon</span>
+                        <strong>Smartfon kataloqu</strong>
+                        <small>iPhone, Samsung, Xiaomi modelləri</small>
+                    </a>
+                    <a class="promo-card compact-dark" href="temir.html">
+                        <span>Servis</span>
+                        <strong>Təmir və diaqnostika</strong>
+                        <small>Ekran, batareya, kamera xidməti</small>
+                    </a>
+                </aside>
+            </div>
+        </section>
+
+        <section class="brand-strip" aria-label="Brendlər">
+            <div class="container brand-strip-grid">
+                <span>Apple</span>
+                <span>Samsung</span>
+                <span>Xiaomi</span>
+                <span>AirPods</span>
+                <span>MagSafe</span>
+                <span>Servis</span>
+            </div>
+        </section>
+
+        <section id="campaigns" class="weekly">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Vitrin</span>
+                        <h2>Əsas bölmələr</h2>
+                    </div>
+                </div>
+
+                <div class="deal-grid">
+                    <a class="deal-card deal-phone" href="telefonlar.html">
+                        <span class="discount">Telefon</span>
+                        <h3>Telefonlar</h3>
+                        <p>Premium və sərfəli smartfon modelləri.</p>
+                        <strong>Səhifəni aç</strong>
+                    </a>
+                    <a class="deal-card deal-accessory" href="aksesuarlar.html">
+                        <span class="discount">Aksesuar</span>
+                        <h3>Aksesuarlar</h3>
+                        <p>Qulaqlıq, adapter, şarj və gündəlik aksesuarlar.</p>
+                        <strong>Səhifəni aç</strong>
+                    </a>
+                    <a class="deal-card deal-repair" href="temir.html">
+                        <span class="discount">Təmir</span>
+                        <h3>Təmir xidmətləri</h3>
+                        <p>Ekran, batareya, kamera və sistem diaqnostikası.</p>
+                        <strong>Səhifəni aç</strong>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Seçilmiş</span>
+                        <h2>Populyar məhsullar</h2>
+                    </div>
+                    <p class="result-count" id="resultCount">3 məhsul göstərilir</p>
+                </div>
+
+                <div class="product-grid home-preview-grid">
+                    <article class="product-card" data-category="phones" data-id="1" data-name="iPhone 15 Pro" data-price="2499">
+                        <div class="product-top"><span class="installment">0% 12 ay</span><span class="stock">Stokda var</span></div>
+                        <div class="product-image"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/IPhone_15_pro.png" alt="iPhone 15 Pro"></div>
+                        <h3>iPhone 15 Pro</h3>
+                        <p class="product-meta">128 GB · Natural Titanium</p>
+                        <div class="product-specs"><span>6.1 ekran</span><span>48 MP</span><span>iOS</span></div>
+                        <p class="price">2 499 AZN</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+
+                    <article class="product-card" data-category="accessories" data-id="10" data-name="AirPods Pro 2" data-price="399">
+                        <div class="product-top"><span class="installment">0% 6 ay</span><span class="stock">Original</span></div>
+                        <div class="product-image"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/AirPods_Pro_(2nd_generation).jpg" alt="AirPods Pro 2"></div>
+                        <h3>AirPods Pro 2</h3>
+                        <p class="product-meta">USB-C · Aktiv səs izolyasiyası</p>
+                        <div class="product-specs"><span>ANC</span><span>USB-C</span><span>Apple</span></div>
+                        <p class="price">399 AZN</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+
+                    <article class="product-card service-card" data-category="repair" data-id="20" data-name="Ekran dəyişimi" data-price="199">
+                        <div class="product-top"><span class="installment">Təmir</span><span class="stock">Diaqnostika</span></div>
+                        <div class="product-image"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Smartphone_cracked_screen.jpg" alt="Ekran dəyişimi"></div>
+                        <h3>Ekran dəyişimi</h3>
+                        <p class="product-meta">Modelə görə qiymət dəyişir</p>
+                        <div class="product-specs"><span>iPhone</span><span>Samsung</span><span>Xiaomi</span></div>
+                        <p class="price">199 AZN-dən</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cart-modal" id="cartModal" aria-hidden="true">
+        <div class="cart-content" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+            <div class="cart-header">
+                <h2 id="cartTitle">Səbət</h2>
+                <button class="close-cart" id="closeCart" type="button" aria-label="Səbəti bağla">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-footer">
+                <div class="cart-total"><strong>Cəmi: <span id="cartTotal">0 AZN</span></strong></div>
+                <button class="btn checkout-btn" type="button">WhatsApp-la sifarişi təsdiqlə</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Bizimlə əlaqə</span>
+                    <h2>Mağaza məlumatları</h2>
+                </div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card"><span class="contact-card-icon">GPS</span><h3>Ünvan</h3><p>Bakı, Azadlıq prospekti 123</p></div>
+                <div class="contact-card"><span class="contact-card-icon">Tel</span><h3>Telefon</h3><a href="tel:+994778002223" class="contact-card-link">+994 77 800 22 23</a></div>
+                <div class="contact-card"><span class="contact-card-icon">@</span><h3>E-mail</h3><a href="mailto:info@ismart.az" class="contact-card-link">info@ismart.az</a></div>
+                <div class="contact-card"><span class="contact-card-icon">SM</span><h3>Sosial şəbəkələr</h3><div class="contact-social"><a href="https://instagram.com/i.smart.az" target="_blank" rel="noopener" class="contact-social-link">Instagram</a><a href="https://tiktok.com/@i.smart.az" target="_blank" rel="noopener" class="contact-social-link">TikTok</a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div><div class="footer-logo"><img src="images/logo.jpeg" alt="iSmart.az Logo"><span>iSmart.az</span></div><p>Telefon, aksesuar və servis xidmətləri üçün rahat online mağaza.</p></div>
+            <div><h3>Kataloq</h3><a href="telefonlar.html">Telefonlar</a><a href="aksesuarlar.html">Aksesuarlar</a><a href="temir.html">Təmir xidmətləri</a></div>
+            <div><h3>Əlaqə</h3><a href="tel:+994778002223">+994 77 800 22 23</a><a href="https://wa.me/994778002223" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:info@ismart.az">info@ismart.az</a></div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 iSmart.az. Bütün hüquqlar qorunur.</p>
+        <p class="image-credit">Məhsul şəkilləri Wikimedia Commons mənbələrindən istifadə olunub.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

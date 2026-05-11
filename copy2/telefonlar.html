@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <!-- Telefonlar səhifəsi üçün kodlaşdırma -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Telefonlar səhifəsi üçün mobil uyğunluq -->
+    <title>Telefonlar - iSmart.az</title>
+    <!-- Telefonlar səhifəsinin brauzer başlığı -->
+
+    <!-- Font Awesome 6 (ikonlar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Ümumi stillər (bütün səhifələr üçün) -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Telefonlar səhifəsi üçün promo zolaq (qırmızı) -->
+    <div class="promo-strip">
+        <div class="container promo-strip-inner">
+            <strong>Telefonlar</strong>
+            <span>iPhone, Samsung və Xiaomi modelləri</span>
+            <a href="index.html">Ana səhifə</a>
+        </div>
+    </div>
+
+    <!-- Telefonlar səhifəsi üçün xidmət zolağı (telefon nömrəsi) -->
+    <div class="service-bar">
+        <div class="container service-bar-inner">
+            <div class="service-links">
+                <a href="index.html">Ana səhifə</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir</a>
+            </div>
+            <div class="service-contact">
+                <a href="tel:+994778002223"><i class="fa-solid fa-phone"></i> +994 77 800 22 23</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telefonlar səhifəsi üçün başlıq (header) -->
+    <header class="header">
+        <div class="container header-main">
+            <!-- Logo və brend -->
+            <a class="brand" href="index.html">
+                <img src="images/logo.jpeg" alt="iSmart.az Logo">
+                <span>iSmart.az</span>
+            </a>
+
+            <!-- Telefonlar səhifəsi üçün kataloq düyməsi -->
+            <button class="catalog-btn" type="button" id="catalogBtn">☰ Kataloq</button>
+
+            <!-- Telefonlar səhifəsi üçün axtarış qutusu (telefon axtarışı) -->
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Telefon axtar">
+                <button type="button" id="searchBtn">Axtar</button>
+            </div>
+
+            <!-- Telefonlar səhifəsi üçün səbət düyməsi -->
+            <button class="cart-btn" id="cartBtn" type="button">
+                Səbət <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+
+        <!-- Telefonlar səhifəsi üçün sürətli kataloq -->
+        <div class="container quick-catalog">
+            <a href="telefonlar.html">Telefonlar</a>
+            <a href="aksesuarlar.html">Aksesuarlar</a>
+            <a href="temir.html">Təmir</a>
+            <a href="index.html#campaigns">Kampaniyalar</a>
+            <a href="index.html#contact">Əlaqə</a>
+        </div>
+
+        <!-- Telefonlar səhifəsi üçün naviqasiya menyusu -->
+        <nav class="container nav">
+            <a href="index.html" class="nav-link">Ana səhifə</a>
+            <a href="telefonlar.html" class="nav-link active">Telefonlar</a>  <!-- active - cari səhifə -->
+            <a href="aksesuarlar.html" class="nav-link">Aksesuarlar</a>
+            <a href="temir.html" class="nav-link">Təmir</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Telefonlar səhifəsi üçün hero banner -->
+        <section class="page-hero phones-hero">
+            <div class="container page-hero-grid">
+                <div>
+                    <!-- Telefonlar səhifəsi üçün çörək qırıntısı (breadcrumb) -->
+                    <div class="breadcrumb">
+                        <a href="index.html"><i class="fa-solid fa-house"></i> Ana səhifə</a>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <span>Telefonlar</span>
+                    </div>
+                    <h1>Telefonlar</h1>
+                    <p>Premium və sərfəli smartfonları ayrıca, təmiz kataloq səhifəsində göstəririk.</p>
+                    <div class="page-actions">
+                        <a href="aksesuarlar.html" class="btn ghost-btn">Aksesuar seç</a>
+                        <a href="temir.html" class="btn ghost-btn">Servisə bax</a>
+                    </div>
+                </div>
+                <!-- Telefonlar səhifəsi üçün banner şəkli (Samsung Galaxy S24 Ultra) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Samsung_Galaxy_S24_Ultra_in_Titanium_Gray.png/300px-Samsung_Galaxy_S24_Ultra_in_Titanium_Gray.png" alt="Samsung Galaxy S24 Ultra">
+            </div>
+        </section>
+
+        <!-- Telefonlar səhifəsi üçün kateqoriya filtrləri -->
+        <section id="categories" class="page-tools">
+            <div class="container category-showcase">
+                <button class="category-card active" data-category="all" type="button">
+                    <span class="category-icon">All</span>
+                    <strong>Bütün telefonlar</strong>
+                    <small>4 model</small>
+                </button>
+                <button class="category-card" data-category="phones" type="button">
+                    <span class="category-icon">Tel</span>
+                    <strong>Smartfonlar</strong>
+                    <small>Stokda olan modellər</small>
+                </button>
+            </div>
+        </section>
+
+        <!-- Telefonlar səhifəsi üçün məhsul siyahısı -->
+        <section id="products" class="products">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Telefon kataloqu</span>
+                        <h2>Smartfonlar</h2>
+                    </div>
+                    <p class="result-count" id="resultCount">4 məhsul göstərilir</p>
+                </div>
+                <div class="product-grid">
+
+                    <!-- Məhsul: iPhone 15 Pro -->
+                    <article class="product-card" data-category="phones" data-id="1" data-name="iPhone 15 Pro" data-price="2499">
+                        <div class="product-top">
+                            <span class="installment">0% 12 ay</span>
+                            <span class="stock">Stokda var</span>
+                        </div>
+                        <div class="product-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/IPhone_15_pro.png/300px-IPhone_15_pro.png" alt="iPhone 15 Pro">
+                        </div>
+                        <h3>iPhone 15 Pro</h3>
+                        <p class="product-meta">128 GB · Natural Titanium</p>
+                        <div class="product-specs">
+                            <span>6.1 ekran</span>
+                            <span>48 MP</span>
+                            <span>iOS</span>
+                        </div>
+                        <p class="price">2 499 AZN</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+
+                    <!-- Məhsul: Samsung Galaxy S24 Ultra -->
+                    <article class="product-card" data-category="phones" data-id="2" data-name="Samsung Galaxy S24 Ultra" data-price="2699">
+                        <div class="product-top">
+                            <span class="installment">0% 18 ay</span>
+                            <span class="stock">Top model</span>
+                        </div>
+                        <div class="product-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Samsung_Galaxy_S24_Ultra_in_Titanium_Gray.png/300px-Samsung_Galaxy_S24_Ultra_in_Titanium_Gray.png" alt="Samsung Galaxy S24 Ultra">
+                        </div>
+                        <h3>Samsung Galaxy S24 Ultra</h3>
+                        <p class="product-meta">256 GB · Titanium Gray</p>
+                        <div class="product-specs">
+                            <span>6.8 ekran</span>
+                            <span>200 MP</span>
+                            <span>S Pen</span>
+                        </div>
+                        <p class="price">2 699 AZN</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+
+                    <!-- Məhsul: Xiaomi 14 Pro -->
+                    <article class="product-card" data-category="phones" data-id="3" data-name="Xiaomi 14 Pro" data-price="1599">
+                        <div class="product-top">
+                            <span class="installment">0% 12 ay</span>
+                            <span class="stock">Sərfəli</span>
+                        </div>
+                        <div class="product-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Xiaomi_14_Pro.jpg/300px-Xiaomi_14_Pro.jpg" alt="Xiaomi 14 Pro">
+                        </div>
+                        <h3>Xiaomi 14 Pro</h3>
+                        <p class="product-meta">512 GB · Black</p>
+                        <div class="product-specs">
+                            <span>AMOLED</span>
+                            <span>Leica</span>
+                            <span>120W</span>
+                        </div>
+                        <p class="price">1 599 AZN</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+
+                    <!-- Məhsul: iPhone 14 Pro Max -->
+                    <article class="product-card" data-category="phones" data-id="4" data-name="iPhone 14 Pro Max" data-price="2199">
+                        <div class="product-top">
+                            <span class="installment">0% 12 ay</span>
+                            <span class="stock">Populyar</span>
+                        </div>
+                        <div class="product-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/IPhone_14_Pro_Max.png/300px-IPhone_14_Pro_Max.png" alt="iPhone 14 Pro Max">
+                        </div>
+                        <h3>iPhone 14 Pro Max</h3>
+                        <p class="product-meta">256 GB · Deep Purple</p>
+                        <div class="product-specs">
+                            <span>6.7 ekran</span>
+                            <span>Face ID</span>
+                            <span>5G</span>
+                        </div>
+                        <p class="price">2 199 AZN</p>
+                        <button class="btn add-to-cart" type="button">Səbətə at</button>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Telefonlar səhifəsi üçün səbət modal pəncərəsi -->
+    <div class="cart-modal" id="cartModal" aria-hidden="true">
+        <div class="cart-content" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+            <div class="cart-header">
+                <h2 id="cartTitle">Səbət</h2>
+                <button class="close-cart" id="closeCart" type="button">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-footer">
+                <div class="cart-total"><strong>Cəmi: <span id="cartTotal">0 AZN</span></strong></div>
+                <button class="btn checkout-btn" type="button"><i class="fa-brands fa-whatsapp"></i> Sifarişi təsdiqlə</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telefonlar səhifəsi üçün əlaqə bölməsi -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Bizimlə əlaqə</span>
+                    <h2>Mağaza məlumatları</h2>
+                </div>
+            </div>
+            <div class="contact-grid">
+                <!-- Ünvan kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <h3>Ünvan</h3>
+                    <p>Bakı, Azadlıq prospekti 123</p>
+                    <small>Bazar ertəsi - Şənbə: 10:00 - 20:00</small>
+                </div>
+                <!-- Telefon kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-phone"></i></span>
+                    <h3>Telefon</h3>
+                    <a href="tel:+994778002223" class="contact-card-link">+994 77 800 22 23</a>
+                </div>
+                <!-- E-mail kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-envelope"></i></span>
+                    <h3>E-mail</h3>
+                    <a href="mailto:info@ismart.az" class="contact-card-link">info@ismart.az</a>
+                </div>
+                <!-- Sosial şəbəkə kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-share-nodes"></i></span>
+                    <h3>Sosial şəbəkələr</h3>
+                    <div class="contact-social">
+                        <a href="https://instagram.com/i.smart.az" target="_blank" class="contact-social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@i.smart.az" target="_blank" class="contact-social-link"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://wa.me/994778002223" target="_blank" class="contact-social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://facebook.com/ismart.az" target="_blank" class="contact-social-link"><i class="fa-brands fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Telefonlar səhifəsi üçün footer (aşağı hissə) -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <img src="images/logo.jpeg" alt="iSmart.az Logo">
+                    <span>iSmart.az</span>
+                </div>
+                <p>Telefon, aksesuar və servis xidmətləri.</p>
+            </div>
+            <div>
+                <h3>Kataloq</h3>
+                <a href="telefonlar.html">Telefonlar</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir</a>
+            </div>
+            <div>
+                <h3>Əlaqə</h3>
+                <a href="tel:+994778002223">+994 77 800 22 23</a>
+                <a href="https://wa.me/994778002223" target="_blank">WhatsApp</a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 iSmart.az. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <!-- Telefonlar səhifəsi üçün üzən sosial media düymələri -->
+    <div class="floating-social">
+        <a href="https://wa.me/994778002223" target="_blank" class="floating-btn whatsapp" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://instagram.com/i.smart.az" target="_blank" class="floating-btn instagram" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://tiktok.com/@i.smart.az" target="_blank" class="floating-btn tiktok" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://facebook.com/ismart.az" target="_blank" class="floating-btn facebook" rel="noopener"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+
+    <!-- Telefonlar səhifəsi üçün JavaScript (ümumi script.js) -->
+    <script src="script.js"></script>
+</body>
+</html>

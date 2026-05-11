@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <!-- Səhifənin kodlaşdırılması (Azərbaycan dili üçün) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mobil cihazlarda düzgün görünmə üçün -->
+    <title>iSmart.az</title>
+    <!-- Brauzer başlığında görünən ad -->
+    
+    <!-- Font Awesome 6 (ikonlar üçün) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Swiper.js CSS (slider və karousel üçün) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Saytın əsas stilləri -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ======================================== -->
+    <!-- 1. PROMO STRIP (YUXARI QIRMIZI REKLAM ZOLAĞI) -->
+    <!-- Tətil, endirim və ya xəbərdarlıq mesajları üçün istifadə olunur -->
+    <!-- ======================================== -->
+    <div class="promo-strip">
+        <div class="container promo-strip-inner">
+            <strong>iSmart.az</strong>
+            <span>Telefonlar, aksesuarlar və təmir xidmətləri üçün peşəkar mağaza.</span>
+            <a href="telefonlar.html">Kataloqa bax</a>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- 2. SERVICE BAR (TELEFON VƏ LİNKLƏR ZOLAĞI) -->
+    <!-- Telefon nömrəsi, ünvan və sürətli keçidlər -->
+    <!-- ======================================== -->
+    <div class="service-bar">
+        <div class="container service-bar-inner">
+            <div class="service-links">
+                <a href="telefonlar.html">Telefonlar</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir</a>
+                <a href="#contact">Əlaqə</a>
+            </div>
+            <div class="service-contact">
+                <a href="tel:+994778002223"><i class="fa-solid fa-phone"></i> +994 77 800 22 23</a>
+                <a href="#contact"><i class="fa-solid fa-location-dot"></i> Mağaza</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- 3. HEADER (SAYTIN BAŞLIĞI - STICKY)       -->
+    <!-- Logo, axtarış, səbət və əsas naviqasiya -->
+    <!-- Sticky - səhifə fırladıqda da yuxarıda qalır -->
+    <!-- ======================================== -->
+    <header class="header">
+        <div class="container header-main">
+            <!-- Brand / Logo -->
+            <a class="brand" href="index.html" aria-label="iSmart.az ana səhifə">
+                <img src="images/logo.jpeg" alt="iSmart.az Logo">
+                <span>iSmart.az</span>
+            </a>
+
+            <!-- Kataloq düyməsi (mobil üçün əlverişli) -->
+            <button class="catalog-btn" type="button" id="catalogBtn">☰ Kataloq</button>
+
+            <!-- Axtarış qutusu -->
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Məhsul axtar...">
+                <button type="button" id="searchBtn">Axtar</button>
+            </div>
+
+            <!-- Səbət düyməsi -->
+            <button class="cart-btn" id="cartBtn" type="button">
+                Səbət <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+
+        <!-- Sürətli kataloq (mobil üçün əlavə naviqasiya) -->
+        <div class="container quick-catalog">
+            <a href="telefonlar.html">Telefonlar</a>
+            <a href="aksesuarlar.html">Aksesuarlar</a>
+            <a href="temir.html">Təmir</a>
+            <a href="#campaigns">Kampaniyalar</a>
+            <a href="#contact">Zəmanət və əlaqə</a>
+        </div>
+
+        <!-- Əsas naviqasiya menyusu -->
+        <nav class="container nav">
+            <a href="index.html" class="nav-link active">Ana səhifə</a>
+            <a href="telefonlar.html" class="nav-link">Telefonlar</a>
+            <a href="aksesuarlar.html" class="nav-link">Aksesuarlar</a>
+            <a href="temir.html" class="nav-link">Təmir</a>
+            <a href="#contact" class="nav-link">Əlaqə</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ======================================== -->
+        <!-- 4. SLİDER (HƏRƏKƏTLİ KAMPANİYA BANNERİ)   -->
+        <!-- Kampaniyalar avtomatik dəyişir. Məzmun script.js-dən yüklənir -->
+        <!-- ======================================== -->
+        <section class="hero-slider">
+            <div class="swiper heroSwiper">
+                <div class="swiper-wrapper" id="campaignSlider"></div>
+                <!-- Kampaniyalar buraya yüklənir -->
+                <div class="swiper-pagination"></div>
+                <!-- Səhifə göstəriciləri (nöqtələr) -->
+                <div class="swiper-button-next"></div>
+                <!-- Növbəti slide düyməsi -->
+                <div class="swiper-button-prev"></div>
+                <!-- Əvvəlki slide düyməsi -->
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 5. BREND ZOLAĞI (POPULYAR BRENDLƏR) -->
+        <!-- Sadəcə vizual olaraq brendləri göstərir -->
+        <!-- ======================================== -->
+        <section class="brand-strip" aria-label="Brendlər">
+            <div class="container brand-strip-grid">
+                <span>Apple</span>
+                <span>Samsung</span>
+                <span>Xiaomi</span>
+                <span>AirPods</span>
+                <span>MagSafe</span>
+                <span>Servis</span>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 6. ƏSAS BÖLMƏLƏR (3 kart - Telefon/Aksesuar/Təmir) -->
+        <!-- Hər bir kart müvafiq səhifəyə aparır -->
+        <!-- ======================================== -->
+        <section id="campaigns" class="weekly">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Vitrin</span>
+                        <h2>Əsas bölmələr</h2>
+                    </div>
+                </div>
+                <div class="deal-grid">
+                    <!-- Telefonlar bölməsi -->
+                    <a class="deal-card deal-phone" href="telefonlar.html">
+                        <span class="discount">Telefon</span>
+                        <h3>Telefonlar</h3>
+                        <p>Premium və sərfəli smartfon modelləri.</p>
+                        <strong>Səhifəni aç</strong>
+                    </a>
+                    <!-- Aksesuarlar bölməsi -->
+                    <a class="deal-card deal-accessory" href="aksesuarlar.html">
+                        <span class="discount">Aksesuar</span>
+                        <h3>Aksesuarlar</h3>
+                        <p>Qulaqlıq, adapter, şarj və gündəlik aksesuarlar.</p>
+                        <strong>Səhifəni aç</strong>
+                    </a>
+                    <!-- Təmir bölməsi -->
+                    <a class="deal-card deal-repair" href="temir.html">
+                        <span class="discount">Təmir</span>
+                        <h3>Təmir xidmətləri</h3>
+                        <p>Ekran, batareya, kamera və sistem diaqnostikası.</p>
+                        <strong>Səhifəni aç</strong>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 7. YENİ MƏHSULLAR KAROUSELİ -->
+        <!-- Condition "yeni" olan telefonlar avtomatik burada göstərilir. script.js-dən doldurulur -->
+        <!-- ======================================== -->
+        <section class="products featured-products">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Seçilmiş</span>
+                        <h2>Yeni Məhsullar</h2>
+                    </div>
+                    <a href="telefonlar.html" class="btn ghost-btn">Hamısına bax →</a>
+                </div>
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper" id="newProductsWrapper"></div>
+                    <!-- Yeni məhsullar buraya yüklənir -->
+                    <div class="swiper-pagination product-pagination"></div>
+                    <div class="swiper-button-next product-next"></div>
+                    <div class="swiper-button-prev product-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 8. İKİNCİ ƏL MƏHSULLAR KAROUSELİ -->
+        <!-- Condition "ikinci" olan telefonlar avtomatik burada göstərilir -->
+        <!-- ======================================== -->
+        <section class="products featured-products">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Seçilmiş</span>
+                        <h2>İkinci Əl Məhsullar</h2>
+                    </div>
+                    <a href="telefonlar.html" class="btn ghost-btn">Hamısına bax →</a>
+                </div>
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper" id="usedProductsWrapper"></div>
+                    <!-- İkinci əl məhsullar buraya yüklənir -->
+                    <div class="swiper-pagination product-pagination"></div>
+                    <div class="swiper-button-next product-next"></div>
+                    <div class="swiper-button-prev product-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 9. POPULYAR MƏHSULLAR (STATİK GRID) -->
+        <!-- Ana səhifədə 3 məhsul göstərilir (hər kateqoriyadan bir) -->
+        <!-- ======================================== -->
+        <section id="products" class="products">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Seçilmiş</span>
+                        <h2>Populyar məhsullar</h2>
+                    </div>
+                    <p class="result-count" id="resultCount">3 məhsul göstərilir</p>
+                </div>
+                <div class="product-grid home-preview-grid" id="popularProducts"></div>
+                <!-- Məhsullar buraya yüklənir -->
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================================== -->
+    <!-- 10. SƏBƏT MODALI (AÇILAN PƏNCƏRƏ) -->
+    <!-- Səbət düyməsinə klik edəndə görünür -->
+    <!-- ======================================== -->
+    <div class="cart-modal" id="cartModal" aria-hidden="true">
+        <div class="cart-content" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+            <div class="cart-header">
+                <h2 id="cartTitle">Səbət</h2>
+                <button class="close-cart" id="closeCart" type="button" aria-label="Səbəti bağla">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <!-- Səbətdəki məhsullar buraya yüklənir -->
+            <div class="cart-footer">
+                <div class="cart-total"><strong>Cəmi: <span id="cartTotal">0 AZN</span></strong></div>
+                <button class="btn checkout-btn" type="button"><i class="fa-brands fa-whatsapp"></i> Sifarişi təsdiqlə</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- 11. ƏLAQƏ BÖLMƏSİ (CONTACT) -->
+    <!-- Ünvan, telefon, e-mail və sosial şəbəkələr -->
+    <!-- ======================================== -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow">Bizimlə əlaqə</span>
+                    <h2>Mağaza məlumatları</h2>
+                </div>
+            </div>
+            <div class="contact-grid">
+                <!-- Ünvan kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <h3>Ünvan</h3>
+                    <p>Bakı, Azadlıq prospekti 123</p>
+                    <small>Bazar ertəsi - Şənbə: 10:00 - 20:00</small>
+                </div>
+                <!-- Telefon kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-phone"></i></span>
+                    <h3>Telefon</h3>
+                    <a href="tel:+994778002223" class="contact-card-link">+994 77 800 22 23</a>
+                </div>
+                <!-- E-mail kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-envelope"></i></span>
+                    <h3>E-mail</h3>
+                    <a href="mailto:info@ismart.az" class="contact-card-link">info@ismart.az</a>
+                </div>
+                <!-- Sosial şəbəkə kartı -->
+                <div class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-solid fa-share-nodes"></i></span>
+                    <h3>Sosial şəbəkələr</h3>
+                    <div class="contact-social">
+                        <a href="https://instagram.com/i.smart.az" target="_blank" class="contact-social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@i.smart.az" target="_blank" class="contact-social-link"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://wa.me/994778002223" target="_blank" class="contact-social-link"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://facebook.com/ismart.az" target="_blank" class="contact-social-link"><i class="fa-brands fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================== -->
+    <!-- 12. FOOTER (AŞAĞI HİSSƏ) -->
+    <!-- Kataloq, əlaqə və müəllif hüquqları -->
+    <!-- ======================================== -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <img src="images/logo.jpeg" alt="iSmart.az Logo">
+                    <span>iSmart.az</span>
+                </div>
+                <p>Telefon, aksesuar və servis xidmətləri üçün rahat online mağaza.</p>
+            </div>
+            <div>
+                <h3>Kataloq</h3>
+                <a href="telefonlar.html">Telefonlar</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir xidmətləri</a>
+            </div>
+            <div>
+                <h3>Əlaqə</h3>
+                <a href="tel:+994778002223">+994 77 800 22 23</a>
+                <a href="https://wa.me/994778002223" target="_blank">WhatsApp</a>
+                <a href="mailto:info@ismart.az">info@ismart.az</a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 iSmart.az. Bütün hüquqlar qorunur.</p>
+    </footer>
+
+    <!-- ======================================== -->
+    <!-- 13. FLOATING SOSIAL MEDIA DÜYMƏLƏRİ -->
+    <!-- Səhifənin sağ alt küncündə üzən düymələr -->
+    <!-- ======================================== -->
+    <div class="floating-social">
+        <a href="https://wa.me/994778002223" target="_blank" class="floating-btn whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://instagram.com/i.smart.az" target="_blank" class="floating-btn instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://tiktok.com/@i.smart.az" target="_blank" class="floating-btn tiktok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://facebook.com/ismart.az" target="_blank" class="floating-btn facebook"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+
+    <!-- ======================================== -->
+    <!-- 14. JAVASCRIPT KİTABXANALARI VƏ FAYLLARI -->
+    <!-- Swiper.js - slider və karousel üçün -->
+    <!-- script.js - saytın əsas JavaScript kodu -->
+    <!-- ======================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

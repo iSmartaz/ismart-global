@@ -3,99 +3,517 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sifarişlər - iSmart.az</title>
+    <title>Sifarişlər - Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="frontend/css/styles.css">
+    <link rel="stylesheet" href="/frontend/css/styles.css">
+    <style>
+        .orders-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding: 20px 24px;
+            background: var(--admin-card-bg);
+            border-radius: 24px;
+            box-shadow: var(--admin-shadow);
+            border: 1px solid var(--admin-border);
+        }
+        .orders-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .back-btn {
+            background: var(--admin-gradient);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
+        }
+        .order-filters-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid var(--admin-border);
+            background: var(--admin-card-bg);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--admin-text);
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .stats-summary {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .stat-badge {
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .stat-badge.pending { background: #fef3c7; color: #d97706; }
+        .stat-badge.confirmed { background: #d1fae5; color: #059669; }
+        .stat-badge.shipped { background: #dbeafe; color: #2563eb; }
+        .stat-badge.delivered { background: #d1fae5; color: #059669; }
+        .stat-badge.cancelled { background: #fee2e2; color: #dc2626; }
+        .orders-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .order-card {
+            background: var(--admin-card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--admin-border);
+            transition: all 0.3s;
+        }
+        .order-card:hover {
+            box-shadow: var(--admin-shadow-lg);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--admin-border);
+        }
+        .order-number {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        .order-date {
+            font-size: 0.85rem;
+            color: var(--admin-text-light);
+        }
+        .order-status-select {
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .order-customer {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--admin-bg);
+            border-radius: 16px;
+        }
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .customer-info i { color: var(--primary); }
+        .customer-address {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--admin-text-light);
+        }
+        .order-items {
+            margin-bottom: 16px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--admin-border);
+            font-size: 0.9rem;
+        }
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--admin-border);
+        }
+        .order-total {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .payment-method-badge {
+            padding: 4px 12px;
+            background: var(--admin-card-bg);
+            border-radius: 40px;
+            font-size: 0.75rem;
+        }
+        .order-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .order-actions button {
+            background: none;
+            border: 1px solid var(--admin-border);
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .order-actions button:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        .empty-orders {
+            text-align: center;
+            padding: 80px;
+            color: var(--admin-text-light);
+            background: var(--admin-card-bg);
+            border-radius: 20px;
+        }
+        .order-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+        }
+        .order-modal.active {
+            display: flex;
+        }
+        .order-modal-content {
+            background: var(--admin-card-bg);
+            border-radius: 32px;
+            width: min(550px, 90%);
+            max-height: 85vh;
+            overflow: auto;
+        }
+        .order-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            border-bottom: 1px solid var(--admin-border);
+        }
+        .close-order-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .close-order-modal:hover {
+            transform: rotate(90deg);
+            color: var(--primary);
+        }
+        #orderDetailsContent {
+            padding: 24px;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--admin-border);
+        }
+        .order-modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--admin-border);
+            text-align: right;
+        }
+        @media (max-width: 768px) {
+            .order-header { flex-direction: column; align-items: flex-start; }
+            .order-footer { flex-direction: column; align-items: flex-start; }
+            .order-actions { width: 100%; }
+            .order-actions button { flex: 1; }
+        }
+    </style>
 </head>
-<body>
+<body class="admin-page">
+    <div class="orders-page">
+        <div class="orders-header">
+            <h1><i class="fa-solid fa-truck"></i> Sifarişlərin İdarə Edilməsi</h1>
+            <a href="admin.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Admin Panelə Qayıt</a>
+        </div>
 
-<div class="container">
-    <div class="orders-header">
-        <h1><i class="fas fa-truck"></i> Sifarişlərin İdarə Edilməsi</h1>
-        <a href="admin.html" class="btn"><i class="fas fa-arrow-left"></i> Adminə qayıt</a>
+        <div class="stats-summary" id="statsSummary"></div>
+
+        <div class="order-filters-bar">
+            <button class="filter-btn active" data-filter="all">📋 Bütün sifarişler</button>
+            <button class="filter-btn" data-filter="pending">⏳ Gözləmədə</button>
+            <button class="filter-btn" data-filter="confirmed">✅ Təsdiqlənmiş</button>
+            <button class="filter-btn" data-filter="shipped">🚚 Yolda</button>
+            <button class="filter-btn" data-filter="delivered">📦 Çatdırılmış</button>
+            <button class="filter-btn" data-filter="cancelled">❌ Ləğv edilmiş</button>
+        </div>
+
+        <div class="orders-grid" id="ordersGrid"></div>
     </div>
-    <div id="ordersList" class="orders-list">
-        <div style="text-align:center; padding:40px;">Yüklənir...</div>
+
+    <!-- Sifariş Detalları Modalı -->
+    <div class="order-modal" id="orderDetailsModal">
+        <div class="order-modal-content">
+            <div class="order-modal-header">
+                <h3><i class="fa-regular fa-receipt"></i> Sifariş Detalları</h3>
+                <button class="close-order-modal" id="closeOrderModalBtn">&times;</button>
+            </div>
+            <div id="orderDetailsContent"></div>
+            <div class="order-modal-footer">
+                <button class="btn ghost-btn" id="closeOrderModalFooterBtn">Bağla</button>
+            </div>
+        </div>
     </div>
-</div>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyAOI9XZkJvcxtm3VBHSRBv3PW6WxaI35Tw",
-        authDomain: "ismart-shop-3b29c.firebaseapp.com",
-        databaseURL: "https://ismart-shop-3b29c-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "ismart-shop-3b29c",
-        storageBucket: "ismart-shop-3b29c.firebasestorage.app",
-        messagingSenderId: "824646870381",
-        appId: "1:824646870381:web:0160c2c5993adcc762e664"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    <script>
+        // ========== KÖMƏKÇİ FUNKSİYALAR ==========
+        function escapeHtml(s) {
+            if (!s) return "";
+            return s.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+        }
 
-    function getStatusText(status) {
-        const map = { pending: '⏳ Gözləmədə', confirmed: '✅ Təsdiqlənmiş', shipped: '🚚 Yolda', delivered: '📦 Çatdırılmış', cancelled: '❌ Ləğv edilmiş' };
-        return map[status] || status;
-    }
+        function formatPrice(price) {
+            return `₼${Number(price).toLocaleString("az-AZ")}`;
+        }
 
-    function loadOrders() {
-        database.ref('orders').on('value', (snapshot) => {
-            const data = snapshot.val();
-            const orders = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })).reverse() : [];
-            const container = document.getElementById('ordersList');
+        function getStatusText(status) {
+            const map = { pending: 'gözləmədə', confirmed: 'təsdiqlənmiş', shipped: 'çatdırılmaya verilmiş', delivered: 'çatdırılmış', cancelled: 'ləğv edilmiş' };
+            return map[status] || status;
+        }
+
+        function getStatusBadgeClass(status) {
+            const map = { pending: 'status-pending', confirmed: 'status-confirmed', shipped: 'status-shipped', delivered: 'status-delivered', cancelled: 'status-cancelled' };
+            return map[status] || 'status-pending';
+        }
+
+        // ========== SİFARİŞ FUNKSİYALARI ==========
+        function getOrders() {
+            const saved = localStorage.getItem("ismartOrders");
+            if (!saved) return [];
+            return JSON.parse(saved);
+        }
+
+        function saveOrders(orders) {
+            localStorage.setItem("ismartOrders", JSON.stringify(orders));
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            let orders = getOrders();
+            const idx = orders.findIndex(o => o.id === orderId);
+            if (idx !== -1) {
+                orders[idx].status = newStatus;
+                orders[idx].updatedAt = new Date().toISOString();
+                saveOrders(orders);
+                renderOrders(currentFilter);
+                showToast(`✅ Sifariş ${getStatusText(newStatus)} olaraq yeniləndi!`, "success");
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (!confirm("Bu sifarişi silmək istədiyinizə əminsiniz?")) return;
+            let orders = getOrders().filter(o => o.id !== orderId);
+            saveOrders(orders);
+            renderOrders(currentFilter);
+            updateStats();
+            showToast("✅ Sifariş silindi!", "success");
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = getOrders().find(o => o.id === orderId);
+            if (!order) return;
+            const modal = document.getElementById("orderDetailsModal");
+            const content = document.getElementById("orderDetailsContent");
+            if (modal && content) {
+                content.innerHTML = `
+                    <div class="order-detail">
+                        <p><strong>Sifariş №:</strong> ${escapeHtml(order.id)}</p>
+                        <p><strong>Tarix:</strong> ${new Date(order.date).toLocaleString('az-AZ')}</p>
+                        <p><strong>Müştəri:</strong> ${escapeHtml(order.userName || '-')}</p>
+                        <p><strong>E-poçt:</strong> ${escapeHtml(order.userEmail || '-')}</p>
+                        <p><strong>Ünvan:</strong> ${escapeHtml(order.address || 'Göstərilməyib')}</p>
+                        <p><strong>Ödəniş:</strong> ${order.paymentMethod === 'cash' ? '💵 Nağd' : '💳 Kart'}</p>
+                        <p><strong>Status:</strong> ${getStatusText(order.status)}</p>
+                        <hr>
+                        <h4>Məhsullar:</h4>
+                        ${order.items.map(item => `
+                            <div class="detail-item">
+                                <span>${escapeHtml(item.name)}</span>
+                                <span>${item.quantity} ədəd</span>
+                                <span>${formatPrice(item.price)}</span>
+                            </div>
+                        `).join('')}
+                        <hr>
+                        <p><strong>Ümumi məbləğ:</strong> ${formatPrice(order.total)}</p>
+                    </div>
+                `;
+                modal.classList.add("active");
+            }
+        }
+
+        function showToast(message, type = "success") {
+            let toast = document.querySelector('.admin-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.className = 'admin-toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.style.background = type === "success" ? "#10b981" : "#ef4444";
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function updateStats() {
+            const orders = getOrders();
+            const stats = {
+                pending: orders.filter(o => o.status === 'pending').length,
+                confirmed: orders.filter(o => o.status === 'confirmed').length,
+                shipped: orders.filter(o => o.status === 'shipped').length,
+                delivered: orders.filter(o => o.status === 'delivered').length,
+                cancelled: orders.filter(o => o.status === 'cancelled').length,
+                total: orders.length,
+                revenue: orders.reduce((sum, o) => sum + (o.total || 0), 0)
+            };
+            const container = document.getElementById("statsSummary");
+            if (container) {
+                container.innerHTML = `
+                    <span class="stat-badge pending">⏳ Gözləmədə: ${stats.pending}</span>
+                    <span class="stat-badge confirmed">✅ Təsdiqlənmiş: ${stats.confirmed}</span>
+                    <span class="stat-badge shipped">🚚 Yolda: ${stats.shipped}</span>
+                    <span class="stat-badge delivered">📦 Çatdırılmış: ${stats.delivered}</span>
+                    <span class="stat-badge cancelled">❌ Ləğv edilmiş: ${stats.cancelled}</span>
+                    <span class="stat-badge" style="background: var(--primary); color: white;">💰 Ümumi gəlir: ${formatPrice(stats.revenue)}</span>
+                `;
+            }
+        }
+
+        let currentFilter = "all";
+
+        function renderOrders(filter = "all") {
+            currentFilter = filter;
+            const container = document.getElementById("ordersGrid");
+            if (!container) return;
+            
+            let orders = getOrders();
+            orders = orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (filter !== "all") {
+                orders = orders.filter(o => o.status === filter);
+            }
             
             if (orders.length === 0) {
-                container.innerHTML = '<div class="empty-orders"><i class="fas fa-inbox"></i><br>Heç bir sifariş yoxdur</div>';
+                container.innerHTML = '<div class="empty-orders">📭 Heç bir sifariş tapılmadı</div>';
+                updateStats();
                 return;
             }
             
             container.innerHTML = orders.map(order => `
-                <div class="order-card">
+                <div class="order-card" data-order-id="${order.id}">
                     <div class="order-header">
-                        <div>
-                            <strong><i class="fas fa-receipt"></i> ${order.orderNumber || order.id}</strong><br>
-                            <small><i class="fas fa-calendar"></i> ${new Date(order.createdAt).toLocaleString('az-AZ')}</small>
+                        <div class="order-info">
+                            <span class="order-number"><i class="fa-regular fa-receipt"></i> ${escapeHtml(order.id)}</span>
+                            <span class="order-date"><i class="fa-regular fa-calendar"></i> ${new Date(order.date).toLocaleString('az-AZ')}</span>
                         </div>
-                        <select class="order-status" data-id="${order.id}">
-                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>⏳ Gözləmədə</option>
-                            <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>✅ Təsdiqlənmiş</option>
-                            <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>🚚 Yolda</option>
-                            <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>📦 Çatdırılmış</option>
-                            <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>❌ Ləğv edilmiş</option>
-                        </select>
+                        <div class="order-status">
+                            <select class="order-status-select ${getStatusBadgeClass(order.status)}" data-id="${order.id}">
+                                <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>⏳ Gözləmədə</option>
+                                <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>✅ Təsdiqlənmiş</option>
+                                <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>🚚 Çatdırılmaya verilib</option>
+                                <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>📦 Çatdırılmış</option>
+                                <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>❌ Ləğv edilmiş</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="order-details">
-                        <div><i class="fas fa-user"></i> <strong>${escapeHtml(order.customerName || '-')}</strong></div>
-                        <div><i class="fas fa-phone"></i> ${escapeHtml(order.phone || '-')}</div>
-                        <div><i class="fas fa-map-marker-alt"></i> ${escapeHtml(order.address || '-')}</div>
-                        <div><i class="fas fa-credit-card"></i> ${order.paymentMethod === 'cash' ? 'Nağd' : 'Kart'}</div>
+                    <div class="order-customer">
+                        <div class="customer-info">
+                            <i class="fa-regular fa-user"></i>
+                            <strong>${escapeHtml(order.userName || 'İstifadəçi')}</strong>
+                            <span>${escapeHtml(order.userEmail || '-')}</span>
+                        </div>
+                        ${order.address ? `<div class="customer-address"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(order.address)}</div>` : ''}
                     </div>
                     <div class="order-items">
-                        <strong><i class="fas fa-box"></i> Məhsullar:</strong>
-                        ${order.items ? order.items.map(item => `<div class="order-item">• ${escapeHtml(item.name)} x ${item.quantity} = ${item.price * item.quantity} AZN</div>`).join('') : '-'}
+                        ${order.items.slice(0, 2).map(item => `
+                            <div class="order-item">
+                                <span>${escapeHtml(item.name)}</span>
+                                <span>${item.quantity} ədəd</span>
+                                <span>${formatPrice(item.price)}</span>
+                            </div>
+                        `).join('')}
+                        ${order.items.length > 2 ? `<div class="order-item"><span>...</span><span>+${order.items.length - 2} daha</span><span></span></div>` : ''}
                     </div>
-                    <div class="order-total">
-                        <strong><i class="fas fa-money-bill-wave"></i> Ümumi: ${order.total || 0} AZN</strong>
+                    <div class="order-footer">
+                        <div class="order-total">
+                            <strong>Cəmi: ${formatPrice(order.total)}</strong>
+                            <span class="payment-method-badge">
+                                ${order.paymentMethod === 'cash' ? '💵 Nağd' : '💳 Kart'}
+                            </span>
+                        </div>
+                        <div class="order-actions">
+                            <button class="view-order-details" data-id="${order.id}"><i class="fa-regular fa-eye"></i> Ətraflı</button>
+                            <button class="delete-order-btn" data-id="${order.id}"><i class="fa-regular fa-trash-can"></i> Sil</button>
+                        </div>
                     </div>
                 </div>
-            `).join('');
+            `).join("");
             
-            document.querySelectorAll('.order-status').forEach(select => {
-                select.onchange = () => {
-                    database.ref('orders/' + select.dataset.id).update({ status: select.value });
-                    alert('✅ Sifariş statusu yeniləndi!');
-                };
+            document.querySelectorAll(".order-status-select").forEach(select => {
+                select.addEventListener("change", (e) => {
+                    const orderId = select.dataset.id;
+                    const newStatus = select.value;
+                    updateOrderStatus(orderId, newStatus);
+                });
+            });
+            
+            document.querySelectorAll(".delete-order-btn").forEach(btn => {
+                btn.addEventListener("click", () => deleteOrder(btn.dataset.id));
+            });
+            
+            document.querySelectorAll(".view-order-details").forEach(btn => {
+                btn.addEventListener("click", () => viewOrderDetails(btn.dataset.id));
+            });
+            
+            updateStats();
+        }
+
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                renderOrders(btn.dataset.filter);
             });
         });
-    }
-    
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
-    }
-    
-    loadOrders();
-</script>
+
+        document.getElementById("closeOrderModalBtn")?.addEventListener("click", () => document.getElementById("orderDetailsModal")?.classList.remove("active"));
+        document.getElementById("closeOrderModalFooterBtn")?.addEventListener("click", () => document.getElementById("orderDetailsModal")?.classList.remove("active"));
+
+        renderOrders("all");
+    </script>
 </body>
 </html>

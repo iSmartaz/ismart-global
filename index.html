@@ -1,99 +1,387 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iSmart.az | Telefon, Aksesuar və Təmir</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>iSmart.az - Telefon, Aksesuar və Təmir</title>
     <meta name="description" content="iSmart.az - ən yeni telefonlar, aksesuarlar və peşəkar təmir xidmətləri">
+    <meta name="keywords" content="telefon, aksesuar, təmir, iPhone, Samsung, Xiaomi">
+    <meta name="author" content="iSmart.az">
     <meta name="theme-color" content="#2563eb">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+  <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+    // Firebase konfiqurasiyası (SİZİN MƏLUMATLARINIZI YAZIN!)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAOI9XZkJvcxtm3VBHSRBv3PW6WxaI35Tw",
+        authDomain: "ismart-shop-3b29c.firebaseapp.com",
+        databaseURL: "https://ismart-shop-3b29c-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "ismart-shop-3b29c",
+        storageBucket: "ismart-shop-3b29c.firebasestorage.app",
+        messagingSenderId: "824646870381",
+        appId: "1:824646870381:web:0160c2c5993adcc762e664"
+    };
+    
+    // Firebase-i başlat
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    </script>
+
 </head>
+
+    
 <body>
 
-<div class="header">
-    <div class="container">
-        <div class="header-main">
-            <a href="index.html" class="logo">
-                <img src="images/logo.jpeg" alt="Logo" onerror="this.src='https://placehold.co/40x40'">
-                <span>iSmart.az</span>
-            </a>
-            <div>
-                <button class="btn btn-orange" id="cartBtn">
-                    <i class="fas fa-shopping-cart"></i> Səbət (<span id="cartCount">0</span>)
-                </button>
-                <a href="admin.html" class="btn"><i class="fas fa-shield-alt"></i> Admin</a>
-            </div>
-        </div>
-        <div class="nav">
-            <a href="index.html" class="active"><i class="fas fa-home"></i> Ana səhifə</a>
-            <a href="telefonlar.html"><i class="fas fa-mobile-alt"></i> Telefonlar</a>
-            <a href="aksesuarlar.html"><i class="fas fa-headphones"></i> Aksesuarlar</a>
-            <a href="temir.html"><i class="fas fa-tools"></i> Təmir</a>
-            <a href="orders.html"><i class="fas fa-truck"></i> Sifarişlər</a>
+    
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Push Notification Permission Button -->
+    <button class="push-permission-btn" id="pushPermissionBtn" style="display: none;">
+        <i class="fa-regular fa-bell"></i>
+    </button>
+
+    <div class="dark-mode-toggle">
+        <button id="darkModeBtn" class="dark-mode-btn"><i class="fa-solid fa-moon"></i></button>
+    </div>
+
+    <div class="promo-strip">
+        <div class="container promo-strip-inner">
+            <strong>iSmart.az</strong>
+            <span>🚚 Pulsuz çatdırılma 100 AZN-dən yuxarı</span>
+            <a href="telefonlar.html">Kataloqa bax →</a>
         </div>
     </div>
-</div>
 
-<main>
-    <section class="hero-slider">
-        <div class="container">
+    <div class="service-bar">
+        <div class="container service-bar-inner">
+            <div class="service-links">
+                <a href="telefonlar.html">Telefonlar</a>
+                <a href="aksesuarlar.html">Aksesuarlar</a>
+                <a href="temir.html">Təmir</a>
+                <a href="#contact">Əlaqə</a>
+            </div>
+            <div class="service-contact">
+                <a href="tel:+994778002223"><i class="fa-solid fa-phone"></i> +994 77 800 22 23</a>
+                <a href="#contact"><i class="fa-solid fa-location-dot"></i> Mağaza</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container header-main">
+            <a class="brand" href="index.html"><img src="images/logo.jpeg" alt="Logo"><span>iSmart.az</span></a>
+            <button class="catalog-btn" type="button" id="catalogBtn">☰ Kataloq</button>
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Məhsul axtar...">
+                <button type="button" id="searchBtn">Axtar</button>
+            </div>
+            <button class="cart-btn" id="cartBtn">Səbət <span class="cart-count" id="cartCount">0</span></button>
+            <div class="user-panel">
+                <button class="user-btn" id="userBtn"><i class="fa-regular fa-user"></i></button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" id="loginLink"><i class="fa-regular fa-circle-user"></i> Daxil ol</a>
+                    <a href="#" id="registerLink"><i class="fa-regular fa-address-card"></i> Qeydiyyat</a>
+                    <a href="#" id="profileLink" style="display:none;"><i class="fa-regular fa-id-card"></i> Profilim</a>
+                    <a href="#" id="logoutLink" style="display:none;"><i class="fa-solid fa-right-from-bracket"></i> Çıxış</a>
+                </div>
+            </div>
+        </div>
+        <div class="container quick-catalog">
+            <a href="telefonlar.html">📱 Telefonlar</a>
+            <a href="aksesuarlar.html">🎧 Aksesuarlar</a>
+            <a href="temir.html">🔧 Təmir</a>
+            <a href="#campaigns">🎁 Kampaniyalar</a>
+            <a href="#contact">📍 Əlaqə</a>
+        </div>
+        <nav class="container nav">
+            <a href="index.html" class="nav-link active">Ana səhifə</a>
+            <a href="telefonlar.html" class="nav-link">Telefonlar</a>
+            <a href="aksesuarlar.html" class="nav-link">Aksesuarlar</a>
+            <a href="temir.html" class="nav-link">Təmir</a>
+            <a href="#contact" class="nav-link">Əlaqə</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-slider">
             <div class="swiper heroSwiper">
                 <div class="swiper-wrapper" id="campaignSlider"></div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="products">
-        <div class="container">
-            <div class="section-head">
-                <h2><i class="fas fa-star"></i> Populyar Məhsullar</h2>
-                <p id="resultCount">0 məhsul</p>
+        <section class="brand-strip">
+            <div class="container brand-strip-grid" id="brandStrip">
+                <span data-brand="all" class="active">🏷️ Hamısı</span>
+                <span data-brand="apple">🍎 Apple</span>
+                <span data-brand="samsung">📱 Samsung</span>
+                <span data-brand="xiaomi">📲 Xiaomi</span>
+                <span data-brand="accessories">🎧 Aksesuarlar</span>
+                <span data-brand="repair">🔧 Təmir</span>
             </div>
-            <div class="brand-filter" id="brandFilter">
-                <button class="filter-chip active" data-brand="all">🏷️ Hamısı</button>
-                <button class="filter-chip" data-brand="apple">🍎 Apple</button>
-                <button class="filter-chip" data-brand="samsung">📱 Samsung</button>
-                <button class="filter-chip" data-brand="xiaomi">📲 Xiaomi</button>
-            </div>
-            <div class="product-grid" id="productsGrid"></div>
-        </div>
-    </section>
-</main>
+        </section>
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div>
-                <h3><i class="fas fa-store"></i> iSmart.az</h3>
-                <p>Ən yaxşı qiymətlər, keyfiyyətli məhsullar</p>
+        <section class="products category-slider">
+            <div class="container">
+                <div class="section-head">
+                    <div><span class="eyebrow">🔥 Kampaniyalar</span><h2>Endirimli Məhsullar</h2></div>
+                    <a href="telefonlar.html" class="btn ghost-btn">Bütün endirimlər →</a>
+                </div>
+                <div class="swiper discountSwiper">
+                    <div class="swiper-wrapper" id="discountProductsWrapper"></div>
+                    <div class="swiper-pagination discount-pagination"></div>
+                    <div class="swiper-button-next discount-next"></div>
+                    <div class="swiper-button-prev discount-prev"></div>
+                </div>
             </div>
-            <div>
-                <h3><i class="fas fa-link"></i> Keçidlər</h3>
-                <a href="telefonlar.html">Telefonlar</a>
-                <a href="aksesuarlar.html">Aksesuarlar</a>
-                <a href="temir.html">Təmir</a>
+        </section>
+
+        <section class="products featured-products">
+            <div class="container">
+                <div class="section-head">
+                    <div><span class="eyebrow">✨ Yeni</span><h2>Yeni Məhsullar</h2></div>
+                    <a href="telefonlar.html" class="btn ghost-btn">Hamısına bax →</a>
+                </div>
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper" id="newProductsWrapper"></div>
+                    <div class="swiper-pagination product-pagination"></div>
+                    <div class="swiper-button-next product-next"></div>
+                    <div class="swiper-button-prev product-prev"></div>
+                </div>
             </div>
-            <div>
-                <h3><i class="fas fa-phone"></i> Əlaqə</h3>
-                <p>📞 +994 77 800 22 23</p>
-                <p>📧 info@ismart.az</p>
+        </section>
+
+        <section class="products featured-products">
+            <div class="container">
+                <div class="section-head">
+                    <div><span class="eyebrow">🔄 İkinci əl</span><h2>İkinci Əl Məhsullar</h2></div>
+                    <a href="telefonlar.html" class="btn ghost-btn">Hamısına bax →</a>
+                </div>
+                <div class="swiper productSwiper">
+                    <div class="swiper-wrapper" id="usedProductsWrapper"></div>
+                    <div class="swiper-pagination product-pagination"></div>
+                    <div class="swiper-button-next product-next"></div>
+                    <div class="swiper-button-prev product-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <div class="container">
+                <div class="section-head">
+                    <div><span class="eyebrow">⭐ Populyar</span><h2>Populyar məhsullar</h2></div>
+                    <p class="result-count" id="resultCount">3 məhsul göstərilir</p>
+                </div>
+                <div class="product-grid home-preview-grid" id="popularProducts"></div>
+            </div>
+        </section>
+
+        <!-- Təklif olunan məhsullar bölməsi dinamik olaraq əlavə olunacaq -->
+        <div class="container" id="suggestedSection" style="display: none;">
+            <div class="suggested-products">
+                <div class="suggested-title">
+                    <i class="fa-regular fa-lightbulb"></i>
+                    <span>Sizə Təklif Edirik</span>
+                </div>
+                <div class="suggested-grid" id="suggestedProductsGrid"></div>
             </div>
         </div>
-        <p class="copyright">&copy; 2026 iSmart.az | Bütün hüquqlar qorunur</p>
+    </main>
+
+    <!-- Modal pəncərələr -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <div class="auth-header"><h2 id="authTitle">Daxil ol</h2><button class="close-auth" id="closeAuthBtn">&times;</button></div>
+            <div class="auth-body">
+                <form id="loginFormModal" class="auth-form">
+                    <input type="email" id="loginEmail" placeholder="E-poçt" required>
+                    <input type="password" id="loginPassword" placeholder="Şifrə" required>
+                    <button type="submit" class="btn primary-btn">Daxil ol</button>
+                </form>
+                <form id="registerFormModal" class="auth-form" style="display:none;">
+                    <input type="text" id="regName" placeholder="Ad Soyad" required>
+                    <input type="email" id="regEmail" placeholder="E-poçt" required>
+                    <input type="password" id="regPassword" placeholder="Şifrə" required>
+                    <input type="password" id="regConfirmPassword" placeholder="Şifrə təkrar" required>
+                    <button type="submit" class="btn primary-btn">Qeydiyyat</button>
+                </form>
+                <div class="social-login">
+                    <button class="google-login"><i class="fa-brands fa-google"></i> Google ilə daxil ol</button>
+                    <button class="facebook-login"><i class="fa-brands fa-facebook"></i> Facebook ilə daxil ol</button>
+                </div>
+                <p class="auth-switch"><a href="#" id="switchToRegister">Hesabınız yoxdur? Qeydiyyat</a><a href="#" id="switchToLogin" style="display:none;">Daxil ol</a></p>
+            </div>
+        </div>
     </div>
-</footer>
 
-<div class="toast" id="toast"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header"><h2>🛒 Səbət</h2><button class="close-cart" id="closeCart">&times;</button></div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-coupon">
+                <input type="text" id="couponCode" placeholder="Endirim kodu (SAVE10)">
+                <button id="applyCouponBtn" class="btn ghost-btn">Tətbiq et</button>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total"><strong>Cəmi: <span id="cartTotal">0 AZN</span></strong></div>
+                <div class="delivery-estimate" id="deliveryEstimate" style="font-size: 0.8rem; color: #10b981; text-align: right;"></div>
+                <div class="payment-methods">
+                    <button class="payment-btn cash-btn" data-method="cash">💵 Nağd</button>
+                    <button class="payment-btn card-btn" data-method="card">💳 Kartla ödə</button>
+                </div>
+                <button class="btn checkout-btn" id="checkoutBtn"><i class="fa-brands fa-whatsapp"></i> Sifarişi təsdiqlə</button>
+            </div>
+        </div>
+    </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="frontend/js/script.js"></script>
+    <!-- Tez Bax Modalı -->
+    <div class="quick-view-modal" id="quickViewModal" style="display: none;">
+        <div class="quick-view-content">
+            <div class="quick-view-header">
+                <h2>Məhsul haqqında</h2>
+                <button class="close-quick-view" id="closeQuickViewBtn">&times;</button>
+            </div>
+            <div class="quick-view-body" id="quickViewBody"></div>
+        </div>
+    </div>
+
+    <!-- Digər modallar (əvvəlki kimi qalır) -->
+    <div class="compare-modal" id="compareModal">
+        <div class="compare-content">
+            <div class="compare-header"><h2><i class="fa-solid fa-chart-simple"></i> Müqayisə</h2><button class="close-compare" id="closeCompareBtn">&times;</button></div>
+            <div class="compare-items" id="compareItems"></div>
+        </div>
+    </div>
+
+    <div class="wishlist-modal" id="wishlistModal">
+        <div class="wishlist-content">
+            <div class="wishlist-header"><h2><i class="fa-regular fa-heart"></i> Arzular</h2><button class="close-wishlist" id="closeWishlistBtn">&times;</button></div>
+            <div class="wishlist-items" id="wishlistItems"></div>
+        </div>
+    </div>
+
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-content">
+            <div class="profile-header"><h2>Profilim</h2><button class="close-profile" id="closeProfileBtn">&times;</button></div>
+            <div class="profile-body">
+                <div class="profile-info"><p><strong>Ad:</strong> <span id="profileName"></span></p><p><strong>E-poçt:</strong> <span id="profileEmail"></span></p><p><strong>Bal:</strong> <span id="profilePoints"></span> 🪙</p><p><strong>Səviyyə:</strong> <span id="profileTier"></span></p></div>
+                <div class="order-history"><h3>Sifariş tarixçəsi</h3><div id="orderHistoryList"></div></div>
+                <div class="stock-notifications"><h3>Stok bildirişləri</h3><div id="stockNotificationsList"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-content">
+            <div class="payment-header"><h2>Ödəniş</h2><button class="close-payment" id="closePaymentBtn">&times;</button></div>
+            <div class="payment-body">
+                <div class="order-summary" id="paymentOrderSummary"></div>
+                <div class="card-form" id="cardForm">
+                    <input type="text" placeholder="Kart nömrəsi" id="cardNumber">
+                    <div class="card-row"><input type="text" placeholder="MM/YY" id="cardExpiry"><input type="text" placeholder="CVV" id="cardCvv"></div>
+                    <input type="text" placeholder="Kart sahibi" id="cardName">
+                    <button id="processPaymentBtn" class="btn primary-btn">Ödənişi tamamla</button>
+                </div>
+                <div class="qr-payment" id="qrPayment" style="display:none;"><p>QR kod skan edin</p><div id="qrCode"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-modal" id="reviewModal">
+        <div class="review-modal-content">
+            <div class="review-modal-header">
+                <h3>Rəy yaz</h3>
+                <button class="close-review" id="closeReviewBtn">&times;</button>
+            </div>
+            <div class="review-modal-body">
+                <div class="rating-input">
+                    <label>Qiymətləndirmə:</label>
+                    <div class="stars" id="ratingStars">
+                        <i class="fa-regular fa-star" data-rating="1"></i>
+                        <i class="fa-regular fa-star" data-rating="2"></i>
+                        <i class="fa-regular fa-star" data-rating="3"></i>
+                        <i class="fa-regular fa-star" data-rating="4"></i>
+                        <i class="fa-regular fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Rəyiniz:</label>
+                    <textarea id="reviewComment" rows="4" placeholder="Məhsul haqqında fikirlərinizi yazın..."></textarea>
+                </div>
+                <input type="hidden" id="reviewProductId">
+                <button class="btn primary-btn" id="submitReviewBtn">Göndər</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="coupon-message" id="couponMessage" style="display:none;"></div>
+    <div id="pageViewTracker" data-page="index" style="display:none;"></div>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-head"><div><span class="eyebrow">📞 Əlaqə</span><h2>Mağaza məlumatları</h2></div></div>
+            <div class="contact-grid">
+                <div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></span><h3>Ünvan</h3><p>Bakı, Azadlıq prospekti 123</p><small>B.e - Şənbə: 10:00-20:00</small></div>
+                <div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-phone"></i></span><h3>Telefon</h3><a href="tel:+994778002223">+994 77 800 22 23</a></div>
+                <div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-envelope"></i></span><h3>E-mail</h3><a href="mailto:info@ismart.az">info@ismart.az</a></div>
+                <div class="contact-card"><span class="contact-card-icon"><i class="fa-solid fa-share-nodes"></i></span><h3>Sosial şəbəkələr</h3><div class="contact-social"><a href="https://instagram.com/i.smart.az" target="_blank"><i class="fa-brands fa-instagram"></i></a><a href="https://tiktok.com/@i.smart.az" target="_blank"><i class="fa-brands fa-tiktok"></i></a><a href="https://wa.me/994778002223" target="_blank"><i class="fa-brands fa-whatsapp"></i></a><a href="https://facebook.com/ismart.az" target="_blank"><i class="fa-brands fa-facebook"></i></a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div><div class="footer-logo"><img src="images/logo.jpeg" alt="Logo"><span>iSmart.az</span></div><p>Online mağaza | ən yaxşı qiymətlər</p></div>
+            <div><h3>Kataloq</h3><a href="telefonlar.html">Telefonlar</a><a href="aksesuarlar.html">Aksesuarlar</a><a href="temir.html">Təmir</a></div>
+            <div><h3>Əlaqə</h3><a href="tel:+994778002223">+994 77 800 22 23</a><a href="https://wa.me/994778002223" target="_blank">WhatsApp</a><a href="mailto:info@ismart.az">info@ismart.az</a></div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 iSmart.az | Bütün hüquqlar qorunur</p>
+    </footer>
+
+    <div class="floating-social">
+        <a href="https://wa.me/994778002223" class="floating-btn whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://instagram.com/i.smart.az" class="floating-btn instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://tiktok.com/@i.smart.az" class="floating-btn tiktok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://facebook.com/ismart.az" class="floating-btn facebook"><i class="fa-brands fa-facebook"></i></a>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item active"><i class="fa-solid fa-home"></i><span>Ana</span></a>
+        <a href="telefonlar.html" class="mobile-nav-item"><i class="fa-solid fa-mobile-screen"></i><span>Telefonlar</span></a>
+        <a href="aksesuarlar.html" class="mobile-nav-item"><i class="fa-solid fa-headphones"></i><span>Aksesuar</span></a>
+        <a href="#" id="mobileCartBtn" class="mobile-nav-item"><i class="fa-solid fa-cart-shopping"></i><span>Səbət</span></a>
+        <a href="#" id="mobileUserBtn" class="mobile-nav-item"><i class="fa-regular fa-user"></i><span>Hesab</span></a>
+    </div>
+
+    <div class="mobile-catalog-menu">
+        <button class="mobile-catalog-btn" id="mobileCatalogBtn"><i class="fa-solid fa-bars"></i></button>
+        <div class="mobile-catalog-dropdown" id="mobileCatalogDropdown">
+            <a href="telefonlar.html">📱 Telefonlar</a>
+            <a href="aksesuarlar.html">🎧 Aksesuarlar</a>
+            <a href="temir.html">🔧 Təmir</a>
+            <a href="#campaigns">🎁 Kampaniyalar</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/frontend/js/script.js"></script>
 </body>
 </html>

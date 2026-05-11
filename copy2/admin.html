@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <!-- Admin panel səhifəsi üçün kodlaşdırma -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Admin panel üçün mobil uyğunluq -->
+    <title>Admin Panel - iSmart.az</title>
+    <!-- Admin panel səhifəsinin brauzer başlığı -->
+
+    <!-- Font Awesome 6 (ikonlar) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Ümumi stillər (bütün səhifələr üçün) -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Admin panelə xas əlavə stillər -->
+    <style>
+        /* Valyuta seçim düymələri qrupu */
+        .currency-group { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 16px; }
+        .currency-option { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 8px 16px; border: 2px solid #e2e8f0; border-radius: 40px; transition: all 0.2s; }
+        .currency-option:has(input:checked) { border-color: #e30613; background: #fff0f2; }
+        .currency-option input { margin: 0; width: auto; }
+
+        /* Form qrupları (label + input/select) */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 6px; color: #1f2937; font-size: 0.85rem; }
+        .form-group select, .form-group input, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 0.9rem; background: white; }
+
+        /* Şəkil önizləmə qutusu */
+        .admin-image-preview { min-height: 120px; background: #f8fafc; border-radius: 12px; margin: 12px 0; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px dashed #cbd5e1; }
+        .admin-image-preview img { max-width: 100%; max-height: 140px; object-fit: contain; }
+
+        /* Məhsul sırası (admin list view) */
+        .admin-product-row { display: flex; align-items: center; gap: 16px; padding: 12px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
+        .admin-product-row img { width: 55px; height: 55px; object-fit: contain; background: #f1f5f9; border-radius: 10px; }
+        .admin-product-row button { background: none; border: 1px solid #e2e8f0; padding: 6px 14px; border-radius: 30px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .admin-product-row button:hover { background: #e30613; color: white; border-color: #e30613; }
+
+        /* Admin grid (sol form + sağ siyahı) */
+        .admin-grid { display: grid; grid-template-columns: 450px 1fr; gap: 24px; }
+        @media (max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
+
+        /* Kampaniyalar bölməsi stilləri */
+        .admin-campaigns { grid-column: span 2; margin-top: 30px; padding-top: 20px; border-top: 2px solid #e2e8f0; }
+        .campaign-row { display: flex; align-items: center; gap: 16px; padding: 16px; background: #f8fafc; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+        .campaign-row img { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; }
+        .campaign-info { flex: 1; }
+        .campaign-info h4 { margin-bottom: 6px; }
+        .campaign-info p { color: #6b7280; font-size: 0.85rem; }
+        .campaign-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
+        .campaign-badge.active { background: #10B981; color: white; }
+        .campaign-badge.inactive { background: #ef4444; color: white; }
+        .campaign-actions button { background: none; border: 1px solid #e2e8f0; padding: 6px 14px; border-radius: 30px; cursor: pointer; margin-left: 8px; }
+
+        /* Kampaniya modal pəncərəsi */
+        .campaign-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+        .campaign-modal.active { display: flex; }
+        .campaign-modal-content { background: white; border-radius: 20px; padding: 28px; width: min(500px, 90%); max-height: 85vh; overflow: auto; }
+        .campaign-modal-content h3 { margin-bottom: 20px; }
+        .campaign-preview { margin-top: 16px; padding: 16px; background: #f1f5f9; border-radius: 12px; text-align: center; }
+        .campaign-preview img { max-width: 100%; max-height: 150px; border-radius: 10px; }
+    </style>
+</head>
+<body class="admin-page">
+    <main class="admin-shell">
+
+        <!-- ======================================== -->
+        <!-- 1. GİRİŞ PANELİ (LOGIN) -->
+        <!-- Admin panelə giriş üçün istifadəçi adı və parol tələb olunur -->
+        <!-- İstifadəçi: admin | Parol: iSmart2026 -->
+        <!-- ======================================== -->
+        <section class="admin-login" id="loginPanel">
+            <div class="admin-card">
+                <img src="images/logo.jpeg" alt="iSmart.az">
+                <h1>Admin giriş</h1>
+                <p>Məhsul əlavə etmək, silmək və qiymət dəyişmək üçün daxil olun.</p>
+                <form id="loginForm">
+                    <label>İstifadəçi adı<input id="adminUser" type="text" autocomplete="username" required></label>
+                    <label>Parol<input id="adminPass" type="password" autocomplete="current-password" required></label>
+                    <button class="btn primary-btn" type="submit">Daxil ol</button>
+                    <span class="admin-error" id="loginError"></span>
+                </form>
+            </div>
+        </section>
+
+        <!-- ======================================== -->
+        <!-- 2. ADMIN DASHBOARD (GİRİŞDƏN SONRA) -->
+        <!-- Məhsul və kampaniyaların idarə edildiyi əsas panel -->
+        <!-- ======================================== -->
+        <section class="admin-dashboard" id="adminDashboard" hidden>
+            <div class="admin-topbar">
+                <div><span class="breadcrumb">iSmart.az</span><h1>Məhsul idarəetməsi</h1></div>
+                <div class="admin-actions">
+                    <a class="btn ghost-btn" href="index.html">Sayta bax</a>
+                    <button class="btn primary-btn" id="logoutBtn" type="button">Çıxış</button>
+                </div>
+            </div>
+
+            <div class="admin-grid">
+                <!-- ======================================== -->
+                <!-- 3. SOL FORM (MƏHSUL ƏLAVƏ/REDAKTƏ) -->
+                <!-- Məhsul məlumatlarının daxil edildiyi və yadda saxlandığı hissə -->
+                <!-- ======================================== -->
+                <form class="admin-form" id="productForm">
+                    <input type="hidden" id="productId">
+                    <h2>📦 Məhsul əlavə/redaktə et</h2>
+
+                    <!-- Kateqoriya seçimi (telefon/aksesuar/təmir) -->
+                    <div class="form-group">
+                        <label>📂 Kateqoriya</label>
+                        <select id="productCategory" required>
+                            <option value="phones">📱 Telefonlar</option>
+                            <option value="accessories">🎧 Aksesuarlar</option>
+                            <option value="repair">🔧 Təmir xidmətləri</option>
+                        </select>
+                    </div>
+
+                    <!-- Valyuta seçimi (AZN/USD/EUR/TRY) -->
+                    <div class="form-group">
+                        <label>💱 Valyuta</label>
+                        <div class="currency-group">
+                            <label class="currency-option"><input type="radio" name="currency" value="AZN" checked> 🇦🇿 ₼ AZN</label>
+                            <label class="currency-option"><input type="radio" name="currency" value="USD"> 🇺🇸 $ USD</label>
+                            <label class="currency-option"><input type="radio" name="currency" value="EUR"> 🇪🇺 € EUR</label>
+                            <label class="currency-option"><input type="radio" name="currency" value="TRY"> 🇹🇷 ₺ TL</label>
+                        </div>
+                        <input type="hidden" id="productCurrency" value="AZN">
+                    </div>
+
+                    <!-- Məhsul vəziyyəti (yeni/ikinci əl/təmirli) -->
+                    <div class="form-group">
+                        <label>🔘 Məhsul vəziyyəti</label>
+                        <select id="productCondition">
+                            <option value="yeni">✨ Yeni (Zəmanətli)</option>
+                            <option value="ikinci">🔄 İkinci əl (Yoxlanılıb)</option>
+                            <option value="temirli">🔧 Təmirli (Zəmanətli)</option>
+                        </select>
+                    </div>
+
+                    <!-- Telefonlar üçün xüsusi sahələr (brend, model, yaddaş, rəng, kredit, zəmanət) -->
+                    <div id="phoneFields" style="display:none;">
+                        <div class="form-group"><label>🏷️ Brend</label><select id="phoneBrand"><option value="">Seçin...</option><option value="Apple">Apple</option><option value="Samsung">Samsung</option><option value="Xiaomi">Xiaomi</option><option value="Google">Google</option><option value="OnePlus">OnePlus</option></select></div>
+                        <div class="form-group"><label>📱 Model</label><select id="phoneModel" disabled><option value="">Əvvəlcə brend seçin</option></select></div>
+                        <div class="form-group"><label>💾 Yaddaş</label><select id="phoneStorage" disabled><option value="">Seçin...</option></select></div>
+                        <div class="form-group"><label>🎨 Rəng</label><select id="phoneColor" disabled><option value="">Seçin...</option></select></div>
+                        <div class="form-group"><label>💳 Kredit seçimi</label><select id="phoneInstallment"><option value="0 ay,0%">💰 Birdəfəlik (0 ay, 0%)</option><option value="3 ay,7%">📆 3 ay (7% faiz)</option><option value="6 ay,9%">📆 6 ay (9% faiz)</option><option value="9 ay,11%">📆 9 ay (11% faiz)</option><option value="12 ay,13%" selected>📆 12 ay (13% faiz)</option><option value="18 ay,17%">📆 18 ay (17% faiz)</option><option value="24 ay,22%">📆 24 ay (22% faiz)</option></select></div>
+                        <div class="form-group"><label>🛡️ Zəmanət</label><select id="phoneWarranty"><option value="1 il">1 il</option><option value="2 il" selected>2 il</option><option value="3 il">3 il</option></select></div>
+                    </div>
+
+                    <!-- Aksesuarlar üçün xüsusi sahələr -->
+                    <div id="accessoryFields" style="display:none;">
+                        <div class="form-group"><label>🎧 Aksesuar növü</label><select id="accessoryType"><option value="">Seçin...</option><option value="Qulaqlıq">🎧 Qulaqlıq</option><option value="Adapter">🔌 Adapter</option><option value="Kabel">⚡ Kabel</option><option value="Şarj cihazı">🔋 Şarj cihazı</option></select></div>
+                        <div class="form-group"><label>💳 Kredit seçimi</label><select id="accessoryInstallment"><option value="0 ay,0%">💰 Birdəfəlik (0 ay, 0%)</option><option value="3 ay,7%">📆 3 ay (7% faiz)</option><option value="6 ay,9%" selected>📆 6 ay (9% faiz)</option><option value="12 ay,13%">📆 12 ay (13% faiz)</option></select></div>
+                    </div>
+
+                    <!-- Təmir xidmətləri üçün xüsusi sahələr -->
+                    <div id="repairFields" style="display:none;">
+                        <div class="form-group"><label>🔧 Təmir növü</label><select id="repairType"><option value="">Seçin...</option><option value="Ekran dəyişimi">📱 Ekran dəyişimi</option><option value="Batareya dəyişimi">🔋 Batareya dəyişimi</option><option value="Kamera təmiri">📸 Kamera təmiri</option></select></div>
+                    </div>
+
+                    <!-- Avtomatik yaradılan məhsul adı -->
+                    <div id="autoNameGroup" style="display:none;">
+                        <div class="form-group"><label>📝 Məhsul adı (avtomatik)</label><input type="text" id="productName" readonly style="background:#f3f4f6; font-weight:bold;"></div>
+                    </div>
+
+                    <!-- Ümumi sahələr (bütün kateqoriyalar üçün) -->
+                    <div class="form-group"><label>💰 Qiymət (rəqəm)</label><input id="productPrice" type="number" min="0" required></div>
+                    <div class="form-group"><label>📝 Açıqlama (meta)</label><input id="productMeta" type="text" placeholder="128 GB · Black"></div>
+                    <div class="form-group"><label>🖼️ Şəkil linki</label><input id="productImage" type="url" placeholder="İnternet şəkil linki"></div>
+                    <div class="form-group"><label>📁 Və ya fayldan şəkil seç</label><input id="productImageFile" type="file" accept="image/*"></div>
+                    <div class="admin-image-preview" id="imagePreview">🖼️ Şəkil önizləməsi</div>
+                    <div class="form-group"><label>⚙️ Xüsusiyyətlər (vergüllə)</label><input id="productSpecs" type="text" placeholder="6.1 ekran, 48 MP, iOS"></div>
+                    <div class="form-group"><label>🏷️ Status (stock)</label><input id="productStock" type="text" placeholder="Stokda var"></div>
+
+                    <!-- Düymələr -->
+                    <div class="admin-form-actions">
+                        <button class="btn primary-btn" type="submit">💾 Yadda saxla</button>
+                        <button class="btn ghost-btn" id="resetFormBtn" type="button">🗑️ Təmizlə</button>
+                    </div>
+                </form>
+
+                <!-- ======================================== -->
+                <!-- 4. SAĞ SİYAHI (MƏHSULLAR SİYAHISI) -->
+                <!-- Bütün məhsulların siyahısı, redaktə və sil düymələri -->
+                <!-- ======================================== -->
+                <div class="admin-list">
+                    <div class="admin-list-head">
+                        <h2>📦 Məhsullar</h2>
+                        <button class="btn ghost-btn" id="resetProductsBtn" type="button">🔄 Standarta qaytar</button>
+                    </div>
+                    <div id="adminProducts"></div>
+                </div>
+
+                <!-- ======================================== -->
+                <!-- 5. KAMPANİYALAR BÖLMƏSİ -->
+                <!-- Reklam/kampaniya siyahısı, əlavə et, redaktə, sil -->
+                <!-- ======================================== -->
+                <div class="admin-campaigns">
+                    <div class="admin-list-head">
+                        <h2>📢 Kampaniyalar / Reklamlar</h2>
+                        <button class="btn primary-btn" id="addCampaignBtn" type="button">+ Yeni kampaniya</button>
+                    </div>
+                    <div id="adminCampaigns"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================================== -->
+    <!-- 6. KAMPANİYA MODALI (ƏLAVƏ/REDAKTƏ ÜÇÜN) -->
+    <!-- Kampaniya əlavə edərkən və ya redaktə edərkən açılan pəncərə -->
+    <!-- ======================================== -->
+    <div class="campaign-modal" id="campaignModal">
+        <div class="campaign-modal-content">
+            <h3 id="campaignModalTitle">Yeni kampaniya</h3>
+            <input type="hidden" id="campaignId">
+
+            <div class="form-group"><label>Başlıq</label><input type="text" id="campaignTitle" placeholder="Məs: 0% faiz 12 ay"></div>
+            <div class="form-group"><label>Açıqlama</label><textarea id="campaignDesc" rows="2" placeholder="Kampaniya haqqında qısa məlumat"></textarea></div>
+            <div class="form-group"><label>Şəkil linki</label><input type="url" id="campaignImage" placeholder="Şəkil URL"></div>
+            <div class="form-group"><label>Və ya fayldan şəkil seç</label><input type="file" id="campaignImageFile" accept="image/*"></div>
+            <div class="campaign-preview" id="campaignPreview">Şəkil önizləməsi</div>
+            <div class="form-group"><label>Link (hansı səhifəyə getsin)</label>
+                <select id="campaignLink">
+                    <option value="telefonlar.html">Telefonlar</option>
+                    <option value="aksesuarlar.html">Aksesuarlar</option>
+                    <option value="temir.html">Təmir</option>
+                    <option value="index.html">Ana səhifə</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Vəziyyət</label>
+                <select id="campaignStatus">
+                    <option value="active">✅ Aktiv</option>
+                    <option value="inactive">❌ Deaktiv</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Sıra (1-ən üstdə)</label><input type="number" id="campaignOrder" value="0" min="0"></div>
+
+            <div class="admin-form-actions" style="margin-top: 20px;">
+                <button class="btn primary-btn" id="saveCampaignBtn">💾 Yadda saxla</button>
+                <button class="btn ghost-btn" id="closeCampaignModalBtn">❌ Bağla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin panel JavaScript faylı -->
+    <script src="admin.js"></script>
+</body>
+</html>

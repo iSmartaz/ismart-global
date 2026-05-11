@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - iSmart.az</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-page">
+    <main class="admin-shell">
+        <section class="admin-login" id="loginPanel">
+            <div class="admin-card">
+                <img src="images/logo.jpeg" alt="iSmart.az">
+                <h1>Admin giriş</h1>
+                <p>Məhsul əlavə etmək, silmək və qiymət dəyişmək üçün daxil olun.</p>
+                <form id="loginForm">
+                    <label>İstifadəçi adı<input id="adminUser" type="text" autocomplete="username" required></label>
+                    <label>Parol<input id="adminPass" type="password" autocomplete="current-password" required></label>
+                    <button class="btn primary-btn" type="submit">Daxil ol</button>
+                    <span class="admin-error" id="loginError"></span>
+                </form>
+            </div>
+        </section>
+
+        <section class="admin-dashboard" id="adminDashboard" hidden>
+            <div class="admin-topbar">
+                <div>
+                    <span class="breadcrumb">iSmart.az</span>
+                    <h1>Məhsul idarəetməsi</h1>
+                </div>
+                <div class="admin-actions">
+                    <a class="btn ghost-btn" href="index.html">Sayta bax</a>
+                    <button class="btn primary-btn" id="logoutBtn" type="button">Çıxış</button>
+                </div>
+            </div>
+
+            <div class="admin-grid">
+                <form class="admin-form" id="productForm">
+                    <input type="hidden" id="productId">
+                    <h2>Məhsul əlavə/redaktə et</h2>
+                    <label>Kateqoriya
+                        <select id="productCategory" required>
+                            <option value="phones">Telefonlar</option>
+                            <option value="accessories">Aksesuarlar</option>
+                            <option value="repair">Təmir</option>
+                        </select>
+                    </label>
+                    <label>Ad<input id="productName" type="text" required></label>
+                    <label>Qiymət rəqəm ilə<input id="productPrice" type="number" min="0" required></label>
+                    <label>Görünən qiymət<input id="productPriceText" type="text" placeholder="Məs: 999 AZN və ya 99 AZN-dən"></label>
+                    <label>Açıqlama<input id="productMeta" type="text" placeholder="128 GB · Black"></label>
+                    <label>Şəkil linki<input id="productImage" type="url" placeholder="İnternet şəkil linki"></label>
+                    <label>Və ya fayldan şəkil seç<input id="productImageFile" type="file" accept="image/*"></label>
+                    <div class="admin-image-preview" id="imagePreview">Şəkil önizləməsi</div>
+                    <label>Xüsusiyyətlər<input id="productSpecs" type="text" placeholder="6.1 ekran, 48 MP, iOS"></label>
+                    <label>Badge<input id="productBadge" type="text" placeholder="0% 12 ay"></label>
+                    <label>Status<input id="productStock" type="text" placeholder="Stokda var"></label>
+                    <div class="admin-form-actions">
+                        <button class="btn primary-btn" type="submit">Yadda saxla</button>
+                        <button class="btn ghost-btn" id="resetFormBtn" type="button">Təmizlə</button>
+                    </div>
+                </form>
+
+                <div class="admin-list">
+                    <div class="admin-list-head">
+                        <h2>Məhsullar</h2>
+                        <button class="btn ghost-btn" id="resetProductsBtn" type="button">Standarta qaytar</button>
+                    </div>
+                    <div id="adminProducts"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>

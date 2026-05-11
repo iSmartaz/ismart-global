@@ -1,7 +1,7 @@
 {
   "name": "iSmart.az",
   "short_name": "iSmart",
-  "description": "Azərbaycanın onlayn mağazası",
+  "description": "Azərbaycanın ən yaxşı onlayn mağazası",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#2563eb",
